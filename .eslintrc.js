@@ -4,12 +4,17 @@ module.exports = {
     browser: true,
     node: true,
   },
-  parserOptions: {
-    parser: '@babel/eslint-parser',
-    requireConfigFile: false,
+  extends: ['@nuxtjs/eslint-config-typescript'],
+  rules: {
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'ignore',
+        objects: 'ignore',
+        imports: 'ignore',
+        exports: 'ignore',
+        functions: 'ignore',
+      },
+    ],
   },
-  extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
-  plugins: [],
-  // add your custom rules here
-  rules: {},
-}
+};
