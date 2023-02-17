@@ -115,12 +115,30 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import { required } from 'vuelidate/lib/validators'
+
 export default Vue.extend({
   name: 'NuxtTutorial',
+
+  data () {
+    return {
+      form: {
+
+      }
+    }
+  },
 
   mounted () {
     this.$toast.show('aa')
     console.dir(this.$axios)
   },
+
+  validations () {
+    return {
+      form: {
+        required
+      }
+    }
+  }
 })
 </script>
