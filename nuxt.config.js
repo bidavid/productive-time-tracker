@@ -34,7 +34,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/toast',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -49,6 +50,13 @@ export default {
         files: './**/*.{ts,js,vue,css,scss,html}',
       },
     },
+  },
+
+  toast: {
+    position: 'bottom-center',
+    duration: 2500,
+    keepOnHover: true,
+    theme: 'bubble',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

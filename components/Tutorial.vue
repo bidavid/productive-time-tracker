@@ -113,11 +113,14 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'NuxtTutorial',
 
   mounted () {
-    const a = 3
+    this.$toast.show('aa')
+    console.dir(this.$axios)
   },
-}
+})
 </script>
