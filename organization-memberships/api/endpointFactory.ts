@@ -1,6 +1,6 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { OrganizationMembership } from '~/services/api/modules/organization-memberships/types'
+import { OrganizationMembership } from './types'
 import { ProductiveApiPromise } from '~/services/api/base-types/ResponseTypes'
 import { PaginatedResponse } from '~/services/api/base-types/Pagination'
 
