@@ -41,7 +41,7 @@ export default {
   css: [
     '~/assets/styles/tailwind-preflight.css',
     '~/assets/styles/typography.css',
-    '~/assets/styles/global-rules.css',
+    '~/assets/styles/global.css',
     '~/assets/icons/icons.css'
   ],
 

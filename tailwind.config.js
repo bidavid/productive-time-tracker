@@ -5,8 +5,11 @@ module.exports = {
     extend: {
       fontSize: {
         xxs: '0.625rem'
-      }
+      },
 
+      width: {
+        '1180px': '1180px'
+      }
     }
   },
   variants: {

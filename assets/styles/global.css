@@ -1,0 +1,25 @@
+a {
+  @apply text-blue-600;
+}
+
+a:hover {
+  @apply underline;
+}
+
+.content-container {
+  @apply w-11/12 mx-auto;
+}
+
+
+/*MEDIA QUERIES*/
+@media screen(sm) {
+  .content-container {
+    @apply w-5/6;
+  }
+}
+
+@media screen(xl) {
+  .content-container {
+    @apply w-1180px;
+  }
+}
