@@ -4,8 +4,7 @@ import type { NuxtAxiosInstance } from '@nuxtjs/axios'
 // Module factories
 import { OrganizationMembershipsEndpointFactory } from '../entities/organization-memberships/api/endpointFactory'
 
-// TODO: ORGANIZE EXPORTS THROUGHOUT PROJECT
-interface ApiService {
+export interface ApiService {
   organizationMemberships: ReturnType<typeof OrganizationMembershipsEndpointFactory>
 }
 

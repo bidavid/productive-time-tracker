@@ -124,6 +124,12 @@ export default Vue.extend({
     }
   },
 
+  async mounted () {
+    const nesto = await this.$api.organizationMemberships.getList()
+
+    console.dir(nesto)
+  },
+
   validations () {
     return {
       form: {
