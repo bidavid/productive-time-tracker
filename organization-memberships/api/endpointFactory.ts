@@ -9,10 +9,10 @@ import { buildRequest } from '~/api/utilities/buildRequest'
 
 export default (axios: NuxtAxiosInstance) => ({
   async getList (): ProductiveApiPromise<PaginatedResponse<OrganizationMembership>> {
-    return await buildRequest(axios.get('/auth/password/forgot'))
+    return await buildRequest<PaginatedResponse<OrganizationMembership>>(axios.get('/auth/password/forgot'))
   },
 
   async getSingle (organizationMembershipId: number): ProductiveApiPromise<OrganizationMembership> {
-    return await buildRequest(axios.$get(`organization_memberships/${organizationMembershipId}`))
+    return await buildRequest<OrganizationMembership>(axios.$get(`organization_memberships/${organizationMembershipId}`))
   }
 })
