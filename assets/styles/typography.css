@@ -27,7 +27,7 @@
 }
 
 /*MEDIA QUERIES*/
-@screen (sm) {
+@media screen(sm) {
   .text-title-3 {
     @apply text-xl;
   }
@@ -41,7 +41,7 @@
   }
 }
 
-@screen (lg) {
+@media screen(lg) {
   .text-title-1 {
     @apply text-3xl;
   }

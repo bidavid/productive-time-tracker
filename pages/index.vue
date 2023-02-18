@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div class="text-title-1">
     Organization memberships
+
+    <a href="/">nesto</a>
   </div>
 </template>
 
@@ -8,6 +10,6 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'Organization Memberships'
+  name: 'OrganizationMemberships'
 })
 </script>

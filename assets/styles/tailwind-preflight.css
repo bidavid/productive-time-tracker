@@ -2,14 +2,3 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@layer base {
-  a {
-    @apply text-blue-600;
-  }
-
-  @variants hover {
-    a {
-      @apply underline;
-    }
-  }
-}
