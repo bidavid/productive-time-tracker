@@ -1,3 +1,3 @@
-export enum EntityTypeEnum {
+export enum ModelTypeEnum {
   OrganizationMemberships = 'organizationMemberships'
 }

@@ -1,6 +1,6 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { EntityTypeEnum } from './enums/EntityType'
+import { ModelTypeEnum } from './enums/ModelType'
 import { ApiService } from '~/api/types/ApiService'
 
 // Module factories
@@ -11,7 +11,7 @@ let instance: ApiService
 export const createApiService = (axios: NuxtAxiosInstance) => {
   if (!instance) {
     instance = {
-      [EntityTypeEnum.OrganizationMemberships]: OrganizationMembershipsEndpointFactory(axios)
+      [ModelTypeEnum.OrganizationMemberships]: OrganizationMembershipsEndpointFactory(axios)
     }
   }
 
