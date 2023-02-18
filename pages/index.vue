@@ -7,7 +7,8 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
+// Classes
 import Vue from 'vue'
 
 export default Vue.extend({
