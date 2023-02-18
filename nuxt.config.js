@@ -37,7 +37,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/vuelidate.js'
+    '~/plugins/vuelidate.js',
+    '~/api/plugins/apiServiceInject.ts'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
