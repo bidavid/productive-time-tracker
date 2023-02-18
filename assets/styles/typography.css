@@ -1,0 +1,52 @@
+.text-title-1 {
+  @apply text-2xl;
+}
+
+.text-title-2 {
+  @apply text-xl;
+}
+
+.text-title-3 {
+  @apply text-lg;
+}
+
+.text-body-1 {
+  @apply text-base;
+}
+
+.text-body-2 {
+  @apply text-sm;
+}
+
+.text-caption {
+  @apply text-xs leading-tight;
+}
+
+.text-overline {
+  @apply text-xxs leading-tight;
+}
+
+/*MEDIA QUERIES*/
+@screen (sm) {
+  .text-title-3 {
+    @apply text-xl;
+  }
+
+  .text-caption {
+    @apply text-sm;
+  }
+
+  .text-overline {
+    @apply text-xs;
+  }
+}
+
+@screen (lg) {
+  .text-title-1 {
+    @apply text-3xl;
+  }
+
+  .text-title-2 {
+    @apply text-2xl;
+  }
+}

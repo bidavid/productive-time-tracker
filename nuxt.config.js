@@ -39,7 +39,8 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/styles/tailwind-preflight.css'
+    '~/assets/styles/tailwind-preflight.css',
+    '~/assets/styles/typography.css'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
