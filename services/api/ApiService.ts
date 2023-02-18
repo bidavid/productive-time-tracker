@@ -2,7 +2,7 @@
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
 
 // Module factories
-import OrganizationMemberships from './modules/organization-memberships/endpointFactory'
+import OrganizationMemberships from '../../organization-memberships/api/endpointFactory'
 
 interface ApiService {
   organizationMemberships: ReturnType<typeof OrganizationMemberships>
