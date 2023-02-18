@@ -1,15 +1,18 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { OrganizationMembership } from './types'
-import { ProductiveApiPromise } from '~/services/api/base-types/ResponseTypes'
-import { PaginatedResponse } from '~/services/api/base-types/Pagination'
+import { ProductiveApiPromise } from '~/api/base-types/ResponseTypes'
+import { PaginatedResponse } from '~/api/base-types/Pagination'
+
+// Utility functions
+import { buildRequest } from '~/api/utilities/buildRequest'
 
 export default (axios: NuxtAxiosInstance) => ({
-  getList (): ProductiveApiPromise<PaginatedResponse<OrganizationMembership>> {
-    return axios.$get('/auth/password/forgot')
+  async getList (): ProductiveApiPromise<PaginatedResponse<OrganizationMembership>> {
+    return await buildRequest(axios.get('/auth/password/forgot'))
   },
 
-  getSingle (organizationMembershipId: number): ProductiveApiPromise<OrganizationMembership> {
-    return axios.$get(`organization_memberships/${organizationMembershipId}`)
+  async getSingle (organizationMembershipId: number): ProductiveApiPromise<OrganizationMembership> {
+    return await buildRequest(axios.$get(`organization_memberships/${organizationMembershipId}`))
   }
 })

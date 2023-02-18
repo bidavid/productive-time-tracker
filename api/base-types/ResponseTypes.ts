@@ -42,14 +42,12 @@ type ProductiveError =
 
 interface SuccessResponse<T> {
   data: T
-  errored: false
 }
 
-interface ErrorResponse {
+export interface ErrorResponse {
   errors: ProductiveError[]
-  errored: true
 }
 
-type ResponseOrError<T> = SuccessResponse<T> | ErrorResponse
+type ResponseOrError<T> = (SuccessResponse<T> & {errored: false}) | (ErrorResponse & {errored: true})
 
 export type ProductiveApiPromise<T = unknown> = Promise<ResponseOrError<T>>
