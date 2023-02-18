@@ -1,3 +1,5 @@
+const { API_BASE_URL, PERSONAL_ACCESS_TOKEN, ORGANIZATION_ID } = process.env
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -13,12 +15,6 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -41,11 +37,23 @@ export default {
     '~/api/plugins/apiServiceInject.ts'
   ],
 
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [],
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseURL: API_BASE_URL,
+    headers: {
+      common: {
+        'Content-type': 'application/vnd.api+json',
+        'X-Organization-Id': ORGANIZATION_ID,
+        'X-Auth-Token': PERSONAL_ACCESS_TOKEN
+      }
+    }
   },
+
+  publicRuntimeConfig: { API_BASE_URL },
 
   typescript: {
     typeCheck: {

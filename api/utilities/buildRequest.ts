@@ -1,7 +1,7 @@
 // Types
-import { ProductiveApiPromise, ErrorResponse } from '~/api/base-types/ResponseTypes'
+import { ProductiveApiPromise, ErrorResponse } from '~/api/types/ResponseTypes'
 
-export async function buildRequest<T> (request: Promise<T>): ProductiveApiPromise<T> {
+export const buildRequest = async <T>(request: Promise<T>): ProductiveApiPromise<T> => {
   try {
     const res = await request
     return { data: res, errored: false }

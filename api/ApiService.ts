@@ -2,7 +2,7 @@
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
 
 // Module factories
-import OrganizationMembershipsEndpointFactory from '../organization-memberships/api/endpointFactory'
+import { OrganizationMembershipsEndpointFactory } from '../entities/organization-memberships/api/endpointFactory'
 
 // TODO: ORGANIZE EXPORTS THROUGHOUT PROJECT
 interface ApiService {
@@ -11,7 +11,7 @@ interface ApiService {
 
 let instance: ApiService
 
-const createApiService = (axios: NuxtAxiosInstance) => {
+export const createApiService = (axios: NuxtAxiosInstance) => {
   if (!instance) {
     instance = {
       organizationMemberships: OrganizationMembershipsEndpointFactory(axios)
@@ -20,9 +20,3 @@ const createApiService = (axios: NuxtAxiosInstance) => {
 
   return instance
 }
-
-// Type
-export { ApiService }
-
-// Factory
-export { createApiService }
