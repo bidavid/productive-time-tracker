@@ -40,7 +40,9 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/tailwind-preflight.css',
-    '~/assets/styles/typography.css'
+    '~/assets/styles/typography.css',
+    '~/assets/styles/global-rules.css',
+    '~/assets/icons/icons.css'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -48,10 +50,11 @@ export default {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: API_BASE_URL,
     headers: {
+      // TODO: HARDCODED, CREATE AUTHENTICATION LATER
       common: {
         'Content-type': 'application/vnd.api+json',
-        'X-Organization-Id': ORGANIZATION_ID,
-        'X-Auth-Token': PERSONAL_ACCESS_TOKEN
+        'X-Auth-Token': PERSONAL_ACCESS_TOKEN,
+        'X-Organization-Id': ORGANIZATION_ID
       }
     }
   },

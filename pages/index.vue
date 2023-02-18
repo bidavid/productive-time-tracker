@@ -3,6 +3,7 @@
     Organization memberships
 
     <a href="/">nesto</a>
+    <em class="icon-search" />
   </div>
 </template>
 
