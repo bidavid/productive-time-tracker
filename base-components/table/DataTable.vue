@@ -11,6 +11,7 @@
       @creation-clicked="$emit('creation-clicked')"
     />
 
+    <!--    TODO: CREATE TABLE HEADER COMPONENT-->
     <table class="w-full bg-white border border-gray-400 table-auto">
       <thead>
         <tr class="border-t border-b border-gray-400 bg-purple-600 text-white">
