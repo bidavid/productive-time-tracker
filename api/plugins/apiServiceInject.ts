@@ -1,7 +1,7 @@
 // Factories
 import { Plugin } from '@nuxt/types'
-import { ApiService } from '~/api/types/ApiService'
-import { createApiService } from '~/api/createApiService'
+import { ApiService } from '../types/ApiService'
+import { createApiService } from '../createApiService'
 
 // We have to use module augmentation
 declare module 'vue/types/vue' {
