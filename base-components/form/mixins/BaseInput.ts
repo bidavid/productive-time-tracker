@@ -1,6 +1,8 @@
 import Vue from 'vue'
 
 // Utilities
+import { v4 as uuidv4 } from 'uuid'
+
 import {
   DateFormattingOptions,
   formatDate
@@ -9,6 +11,10 @@ import { DayJsGranularityEnum } from '~/validations/enums/DayJsGranularityEnum'
 
 export default Vue.extend({
   props: {
+    id: {
+      type: String,
+      default: null
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -32,6 +38,13 @@ export default Vue.extend({
     charMaxLength: {
       type: [Number, String],
       default: null
+    }
+  },
+
+  data() {
+    const inputId = `${this.id || uuidv4()}-input`
+    return {
+      inputId
     }
   },
 
