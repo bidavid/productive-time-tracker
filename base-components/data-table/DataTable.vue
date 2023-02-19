@@ -1,9 +1,16 @@
 <template>
   <div class="w-full max-w-full overflow-x-auto">
     <!--    TOOLBAR-->
-    <div v-if="toolbarShown" class="flex items-center justify-between space-x-4 mb-3">
+    <div
+      v-if="toolbarShown"
+      class="flex items-center justify-between space-x-4 mb-3"
+    >
       <strong class="block font-medium text-title-3">{{ title }}</strong>
-      <button v-if="creatable" :disabled="loading" class="px-3 py-2 bg-blue-500 text-white flex items-center space-x-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+      <button
+        v-if="creatable"
+        :disabled="loading"
+        class="px-3 py-2 bg-blue-500 text-white flex items-center space-x-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+      >
         <em class="icon-plus text-lg" />
         <span>Create</span>
       </button>
@@ -12,7 +19,11 @@
     <table class="w-full bg-white border border-gray-400">
       <thead>
         <tr class="border-t border-b border-gray-400">
-          <th v-for="header in mappedHeaders" :key="`header-cell-${header.id}`" class="font-normal">
+          <th
+            v-for="header in mappedHeaders"
+            :key="`header-cell-${header.id}`"
+            class="font-normal"
+          >
             {{ header.title }}
           </th>
         </tr>
@@ -23,10 +34,17 @@
           <slot name="body" :items="items" />
         </template>
         <template v-else>
-          <tr v-for="(item, index) in items" :key="item.id" class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-blue-100">
+          <tr
+            v-for="(item, index) in items"
+            :key="item.id"
+            class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-blue-100"
+          >
             <!--You can override the whole row-->
             <slot name="row" :item="item" :index="index">
-              <td v-for="header in mappedHeaders" :key="`data-cell-${header.id}`">
+              <td
+                v-for="header in mappedHeaders"
+                :key="`data-cell-${header.id}`"
+              >
                 {{ get(item, header.key) || '-' }}
               </td>
             </slot>
@@ -78,7 +96,7 @@ export default Vue.extend({
     headers: {
       type: Array as PropType<HeaderItem[]>,
       required: true,
-      default () {
+      default() {
         return []
       }
     },
@@ -93,9 +111,9 @@ export default Vue.extend({
     }
   },
 
-  data () {
+  data() {
     // We need ids to iterate headers in template, for keys
-    const mappedHeaders = this.headers.map(h => ({ ...h, id: uuidv4() }))
+    const mappedHeaders = this.headers.map((h) => ({ ...h, id: uuidv4() }))
 
     const defaultMeta: Pagination = Object.freeze({
       current_page: 1,
@@ -116,7 +134,7 @@ export default Vue.extend({
     }
   },
 
-  async fetch () {
+  async fetch() {
     if (!this.assignedModel) {
       this.$nuxt.error({ message: 'assignedModel has to be defined' })
     }
@@ -127,27 +145,27 @@ export default Vue.extend({
   },
 
   computed: {
-    toolbarShown () {
+    toolbarShown() {
       return !!(this.title || this.creatable)
     }
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.fetchItemsDebounced?.cancel?.()
   },
 
   methods: {
     get,
 
-    startLoading () {
+    startLoading() {
       this.loading = true
     },
 
-    stopLoading () {
+    stopLoading() {
       this.loading = false
     },
 
-    async fetchItems () {
+    async fetchItems() {
       try {
         this.startLoading()
 
@@ -164,7 +182,7 @@ export default Vue.extend({
       }
     },
 
-    refreshPagination (fetchedMeta: Pagination) {
+    refreshPagination(fetchedMeta: Pagination) {
       const { meta, defaultMeta } = this
 
       if (!fetchedMeta) {
@@ -181,9 +199,8 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
-
-th, td {
+th,
+td {
   @apply px-4 py-3 text-left;
 }
-
 </style>
