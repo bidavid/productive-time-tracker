@@ -5,8 +5,18 @@
  @param options additional options when it comes to displaying year, month, day, hour, minute, fractionalSecondDigits..
  */
 
+export interface DateFormattingOptions {
+  year?: string
+  month?: string
+  day?: string
+  hour?: string
+  minute?: string
+  second?: string
+  fractionalSecondDigits?: number
+}
+
 const defaultDateFormattingLocale = 'uk-EN'
-const defaultDateFormattingOptions = Object.freeze({
+const defaultDateFormattingOptions: DateFormattingOptions = Object.freeze({
   year: '2-digit',
   month: '2-digit',
   day: '2-digit',
@@ -16,7 +26,7 @@ const defaultDateFormattingOptions = Object.freeze({
 
 function formatDate(
   date: string | Date,
-  options = defaultDateFormattingOptions,
+  options: DateFormattingOptions = defaultDateFormattingOptions,
   locale = defaultDateFormattingLocale
 ): string | null {
   if (!date) {
