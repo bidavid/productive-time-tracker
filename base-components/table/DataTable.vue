@@ -24,8 +24,18 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!items.length">
+          <td colspan="100%">
+            <div
+              class="p-3 flex items-center justify-center space-x-3 text-title-3"
+            >
+              <em class="icon-help text-title-2" />
+              <p>No results were found.</p>
+            </div>
+          </td>
+        </tr>
         <!-- In case you need multiple rows per item-->
-        <template v-if="$scopedSlots.body">
+        <template v-else-if="$scopedSlots.body">
           <slot name="body" :items="items" />
         </template>
         <template v-else>
