@@ -48,6 +48,16 @@
         </template>
       </tbody>
     </table>
+
+    <transition name="fade">
+      <TablePagination
+        v-if="paginationShown"
+        :meta="meta"
+        :loading="loading"
+        class="mt-3 sm:mt-4"
+        @set-page="setPage"
+      />
+    </transition>
   </div>
 </template>
 <script lang="ts">
@@ -73,6 +83,7 @@ import { defaultLimit } from '~/base-components/table/defaults'
 
 // Components
 import TableToolbar from '~/base-components/table/TableToolbar.vue'
+import TablePagination from '~/base-components/table/TablePagination.vue'
 
 interface HeaderItem {
   title: string
@@ -81,6 +92,7 @@ interface HeaderItem {
 
 export default Vue.extend({
   components: {
+    TablePagination,
     TableToolbar
   },
 
@@ -137,8 +149,6 @@ export default Vue.extend({
     if (!this.assignedModel) {
       this.$nuxt.error({ message: 'assignedModel has to be defined' })
     }
-
-    this.fetchItemsDebounced = debounce(this.fetchItems, 350)
     // Do not debounce initial fetch, it cannot be awaited (won't wait for us on SSR and initial render result in empty table)
     await this.fetchItems()
   },
@@ -152,9 +162,14 @@ export default Vue.extend({
     }
   },
 
-  // beforeDestroy() {
-  //   this.fetchItemsDebounced?.cancel?.()
-  // },
+  // this doesn't work inside fetch, strange
+  beforeMount() {
+    this.fetchItemsDebounced = debounce(this.fetchItems, 350)
+  },
+
+  beforeDestroy() {
+    this.fetchItemsDebounced?.cancel?.()
+  },
 
   methods: {
     get,
@@ -187,6 +202,14 @@ export default Vue.extend({
       } finally {
         this.stopLoading()
       }
+    },
+
+    setPage(page: number) {
+      if (this.filters.page === page) {
+        return
+      }
+      this.filters.page = page || 1
+      this.fetchItemsDebounced?.()
     },
 
     refreshPagination(fetchedMeta: Pagination) {

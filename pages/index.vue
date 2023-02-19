@@ -8,8 +8,8 @@
       <template #row="{ item, index }">
         <td>{{ `#${index + 1}` }}</td>
         <td>{{ item.name || '-' }}</td>
-        <td class="whitespace-nowrap">
-          <time>{{
+        <td>
+          <time class="whitespace-nowrap">{{
             formatDate(get(item, 'attributes.updated_at')) || '-'
           }}</time>
         </td>

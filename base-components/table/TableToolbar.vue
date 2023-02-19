@@ -68,10 +68,6 @@ export default Vue.extend({
     }
   },
 
-  fetch() {
-    this.emitSearchDebounced = debounce(this.emitSearch, 350)
-  },
-
   computed: {
     actionBarShown() {
       return !!(this.searchable || this.creatable)
@@ -94,9 +90,13 @@ export default Vue.extend({
     }
   },
 
-  // beforeDestroy() {
-  //   this.emitSearchDebounced?.cancel?.()
-  // },
+  beforeMount() {
+    this.emitSearchDebounced = debounce(this.emitSearch, 350)
+  },
+
+  beforeDestroy() {
+    this.emitSearchDebounced?.cancel?.()
+  },
 
   methods: {
     // TODO: CREATE ENUM FOR ALL EVENTS

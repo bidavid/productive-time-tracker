@@ -186,7 +186,7 @@ export default Vue.extend({
 
 <style scoped>
 .rectangle {
-  @apply w-6 h-6 sm:w-8 sm:h-8;
+  @apply w-6 h-6;
 }
 
 /*MEDIA QUERIES*/
