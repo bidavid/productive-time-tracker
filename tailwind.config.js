@@ -13,7 +13,16 @@ module.exports = {
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      margin: ['last'],
+      backgroundColor: ['disabled'],
+      borderWidth: ['last'],
+      borderColor: ['disabled'],
+      textColor: ['disabled'],
+      opacity: ['disabled'],
+      cursor: ['disabled']
+    }
+
   },
   plugins: []
 }
