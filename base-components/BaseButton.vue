@@ -13,8 +13,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-const defaultBackgroundColor = 'bg-purple-500'
-const defaultBorderColor = 'border-purple-500'
+const defaultBackgroundColor = 'bg-purple-600'
+const defaultBorderColor = 'border-purple-600'
 const defaultTextColor = 'text-white'
 
 export default Vue.extend({

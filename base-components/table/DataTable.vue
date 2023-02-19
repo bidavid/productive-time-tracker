@@ -9,9 +9,9 @@
       :loading="loading"
     />
 
-    <table class="w-full bg-white border border-gray-400">
+    <table class="w-full bg-white border border-gray-400 table-auto">
       <thead>
-        <tr class="border-t border-b border-gray-400">
+        <tr class="border-t border-b border-gray-400 bg-purple-600 text-white">
           <th
             v-for="header in mappedHeaders"
             :key="`header-cell-${header.id}`"
@@ -31,7 +31,7 @@
             v-for="(item, index) in items"
             :key="item.id"
             class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-purple-200"
-            @click.stop="onItemClick({ item, index })"
+            @click.stop="onItemClick(item, index)"
           >
             <!--You can override the whole row-->
             <slot name="row" :item="item" :index="index">
@@ -39,7 +39,7 @@
                 v-for="header in mappedHeaders"
                 :key="`data-cell-${header.id}`"
               >
-                {{ get(item, header.key) || '-' }}
+                {{ get(item, `${header.key}`) || '-' }}
               </td>
             </slot>
           </tr>
@@ -58,7 +58,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { replaceItems } from '~/utility-functions/array-manipulation'
 
 // Types
-import { ModelEnum } from '~/api/enums/ModelEnum'
+import { ModelEnum } from '~/api/models/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
 // TODO: PAGINATION COMPONENT
@@ -185,7 +185,9 @@ export default Vue.extend({
       this.$set(this, 'meta', fetchedMeta)
     },
 
-    onItemClick() {}
+    onItemClick(item, index) {
+      this.$emit('item-click', { item, index })
+    }
   }
 })
 </script>
@@ -193,5 +195,10 @@ export default Vue.extend({
 th,
 td {
   @apply px-4 py-3 text-left;
+}
+
+th:last-child,
+td:last-child {
+  @apply text-right;
 }
 </style>
