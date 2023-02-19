@@ -1,6 +1,6 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { ModelEnum } from './enums/ModelEnum'
+import { ModelEnum } from './models/enums/ModelEnum'
 import { ApiService } from './types/ApiService'
 
 // Module factories

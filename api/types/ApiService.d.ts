@@ -1,5 +1,5 @@
 // Enums
-import { ModelEnum } from '../enums/ModelEnum'
+import { ModelEnum } from '../models/enums/ModelEnum'
 
 // Types
 import { ModelEndpoints } from './ModelEndpoints'
