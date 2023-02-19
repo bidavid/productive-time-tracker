@@ -1,21 +1,17 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { PaginatedResponse } from '../../types/Pagination'
+import { PaginatedResponse, PaginationFilters } from '../../types/Pagination'
 import { ModelEndpoints } from '../../types/ModelEndpoints'
-import { TimeEntry } from './TimeEntry'
-import { Filters } from '~/api/types/Filters'
-
-// Utilities
-import { extractRequestParams } from '~/api/utilities'
+import { TimeEntry, TimeEntryFilters } from './TimeEntry'
 
 // Every endpoint factory has to return ModelEndpoints type
 export default (axios: NuxtAxiosInstance): ModelEndpoints<TimeEntry> => ({
   // Return types can now be omitted but let's keep them
   getList(
-    params: Partial<Filters> = {}
+    params: Partial<PaginationFilters & TimeEntryFilters> = {}
   ): Promise<PaginatedResponse<TimeEntry>> {
     return axios.$get('time_entries', {
-      params: extractRequestParams(params)
+      params
     })
   },
 

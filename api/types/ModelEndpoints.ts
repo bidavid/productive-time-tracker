@@ -1,8 +1,10 @@
 // Types
-import { PaginatedResponse } from './Pagination'
-import { Filters } from '~/api/types/Filters'
+import { PaginatedResponse, PaginationFilters } from './Pagination'
 
-export interface ModelEndpoints<T> {
-  getList(params?: Partial<Filters>): Promise<PaginatedResponse<T>>
-  getSingle(id: number): Promise<T>
+export interface ModelEndpoints<ReturnModelType, CustomModelFilters = {}> {
+  getList(
+    params?: Partial<PaginationFilters & CustomModelFilters>
+  ): Promise<PaginatedResponse<ReturnModelType>>
+
+  getSingle(id: number): Promise<ReturnModelType>
 }

@@ -7,10 +7,10 @@ import { ModelEndpoints } from './ModelEndpoints'
 // Models
 import { OrganizationMembership } from '../models/organization-memberships/OrganizationMembership'
 import { Person } from '../models/people/Person'
-import { TimeEntry } from '../models/time-entries/TimeEntry'
+import { TimeEntry, TimeEntryFilters } from '../models/time-entries/TimeEntry'
 
 export interface ApiService {
   [ModelEnum.OrganizationMemberships]: ModelEndpoints<OrganizationMembership>
   [ModelEnum.People]: ModelEndpoints<Person>
-  [ModelEnum.TimeEntries]: ModelEndpoints<TimeEntry>
+  [ModelEnum.TimeEntries]: ModelEndpoints<TimeEntry, TimeEntryFilters>
 }
