@@ -1,10 +1,9 @@
 <template>
   <div>
     <DataTable
-      title="Organization memberships"
-      :assigned-model="enums.ModelEnum.OrganizationMemberships"
+      title="Time entries for person"
+      :assigned-model="enums.ModelEnum.TimeEntries"
       :headers="tableHeaders"
-      @item-click="onItemClick"
     >
       <template #row="{ item, index }">
         <td>{{ `#${index + 1}` }}</td>
@@ -33,11 +32,8 @@ import { ModelEnum } from '~/api/models/enums/ModelEnum'
 // Utilities
 import { formatDate } from '~/utility-functions/formatters'
 
-// Types
-import { OrganizationMembership } from '~/api/models/organization-memberships/OrganizationMembership'
-
 export default Vue.extend({
-  name: 'OrganizationMemberships',
+  name: 'TimeEntries',
   components: {
     DataTable
   },
@@ -67,17 +63,7 @@ export default Vue.extend({
 
   methods: {
     get,
-    formatDate,
-    onItemClick({ item }: { item: OrganizationMembership }) {
-      const personId = item.relationships?.people?.data?.id
-
-      if (!personId) {
-        this.$toast.error('personId is not defined')
-        return
-      }
-
-      this.$router.push({ path: `${personId}`, append: true })
-    }
+    formatDate
   }
 })
 </script>

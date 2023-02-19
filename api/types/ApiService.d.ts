@@ -3,6 +3,8 @@ import { ModelEnum } from '../models/enums/ModelEnum'
 
 // Types
 import { ModelEndpoints } from './ModelEndpoints'
+
+// Models
 import { OrganizationMembership } from '../models/organization-memberships/OrganizationMembership'
 import { Person } from '../models/people/Person'
 import { TimeEntry } from '../models/time-entries/TimeEntry'
