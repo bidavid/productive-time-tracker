@@ -1,5 +1,4 @@
 COMPONENTS:
-  BaseTablePagination
   BaseTableHeader
   BaseInputWrapper
     TextInput

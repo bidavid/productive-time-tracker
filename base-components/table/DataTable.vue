@@ -11,7 +11,6 @@
       @creation-clicked="$emit('creation-clicked')"
     />
 
-    <!--    TODO: CREATE TABLE HEADER COMPONENT-->
     <table class="w-full bg-white border border-gray-400 table-auto">
       <thead>
         <tr class="border-t border-b border-gray-400 bg-purple-600 text-white">
@@ -85,12 +84,12 @@ import { ModelEnum } from '~/api/models/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
 // Defaults
-import { defaultLimit } from '~/base-components/table/defaults'
+const defaultLimit = 15
 
-// TODO: PAGINATION COMPONENT
+// TODO: TABLE HEADER COMPONENT
 // TODO: IMPLEMENT SEARCH
 // TODO: PUSH FILTERS TO QUERY, USE UNIQUE KEYS FOR EACH TABLES TO DETERMINE WHICH QUERY BELONGS TO WHICH TABLE
-// TODO: SHOULD WORK BOTH WITH ASSIGNED MODEL AND WITH ARRAY OF ITEMS TO DISPLAY
+// TODO: SHOULD WORK BOTH WITH assignedModel PROP AND WITH ARRAY OF ITEMS TO DISPLAY
 
 // Components
 import TableToolbar from '~/base-components/table/TableToolbar.vue'
