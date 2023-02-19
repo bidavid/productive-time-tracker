@@ -7,6 +7,7 @@
       :creatable="creatable"
       :searchable="searchable"
       :loading="loading"
+      class="mb-4"
     />
 
     <table class="w-full bg-white border border-gray-400 table-auto">
@@ -185,7 +186,7 @@ export default Vue.extend({
       this.$set(this, 'meta', fetchedMeta)
     },
 
-    onItemClick(item, index) {
+    onItemClick(item: unknown, index: number) {
       this.$emit('item-click', { item, index })
     }
   }

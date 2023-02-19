@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between space-x-4 mb-3">
+  <div class="flex items-center justify-between space-x-4">
     <div class="flex items-center space-x-3">
       <strong class="block font-medium text-title-3">{{ title }}</strong>
       <transition name="fade">

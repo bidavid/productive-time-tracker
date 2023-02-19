@@ -1,16 +1,17 @@
 <template>
-  <div class="p-5 text-body-2 text-gray-600">
+  <div>
     <DataTable
       title="Organization memberships"
       :assigned-model="enums.ModelEnum.OrganizationMemberships"
       :headers="tableHeaders"
-      creatable
     >
       <template #row="{ item, index }">
         <td>{{ `#${index + 1}` }}</td>
         <td>{{ item.name || '-' }}</td>
         <td class="whitespace-nowrap">
-          {{ formatDate(get(item, 'attributes.updated_at')) || '-' }}
+          <time>{{
+            formatDate(get(item, 'attributes.updated_at')) || '-'
+          }}</time>
         </td>
       </template>
     </DataTable>

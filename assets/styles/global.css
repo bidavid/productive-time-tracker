@@ -10,7 +10,6 @@ a:hover {
   @apply w-11/12 mx-auto;
 }
 
-
 /*MEDIA QUERIES*/
 @media screen(sm) {
   .content-container {

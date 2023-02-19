@@ -1,8 +1,6 @@
 COMPONENTS:
-X BaseTableToolbar
   BaseTablePagination
   BaseTableHeader
-X BaseButton
   BaseInputWrapper
     TextInput
     TextAreaInput
