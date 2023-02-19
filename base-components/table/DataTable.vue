@@ -83,6 +83,10 @@ import { replaceItems } from '~/utility-functions/array-manipulation'
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
+// Components
+import TableToolbar from '~/base-components/table/TableToolbar.vue'
+import TablePagination from '~/base-components/table/TablePagination.vue'
+
 // Defaults
 const defaultLimit = 15
 
@@ -90,10 +94,6 @@ const defaultLimit = 15
 // TODO: IMPLEMENT SEARCH
 // TODO: PUSH FILTERS TO QUERY, USE UNIQUE KEYS FOR EACH TABLES TO DETERMINE WHICH QUERY BELONGS TO WHICH TABLE
 // TODO: SHOULD WORK BOTH WITH assignedModel PROP AND WITH ARRAY OF ITEMS TO DISPLAY
-
-// Components
-import TableToolbar from '~/base-components/table/TableToolbar.vue'
-import TablePagination from '~/base-components/table/TablePagination.vue'
 
 interface HeaderItem {
   title: string
