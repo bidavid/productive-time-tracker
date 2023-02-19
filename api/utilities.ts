@@ -2,7 +2,7 @@
 import { Filters, ApiRequestParams } from '~/api/types/Filters'
 
 /**
- Takes in Filtering params, and creates query params suitable for api
+ Takes in Filtering params, returns query params suitable for api
  */
 export function extractRequestParams({
   page,

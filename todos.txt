@@ -1,7 +1,6 @@
 COMPONENTS:
   BaseTableHeader
-  BaseInputWrapper
-    TextInput
+    SelectInput
     TextAreaInput
     DateInput
   BaseSideModal
