@@ -1,20 +1,13 @@
 <template>
   <div class="w-full max-w-full overflow-x-auto">
     <!--    TOOLBAR-->
-    <div
+    <TableToolbar
       v-if="toolbarShown"
-      class="flex items-center justify-between space-x-4 mb-3"
-    >
-      <strong class="block font-medium text-title-3">{{ title }}</strong>
-
-      <BaseButton
-        v-if="creatable"
-        text="Create"
-        icon="icon-plus"
-        icon-size="text-lg"
-        :disabled="loading"
-      />
-    </div>
+      :title="title"
+      :creatable="creatable"
+      :searchable="searchable"
+      :loading="loading"
+    />
 
     <table class="w-full bg-white border border-gray-400">
       <thead>
@@ -37,7 +30,8 @@
           <tr
             v-for="(item, index) in items"
             :key="item.id"
-            class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-blue-100"
+            class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-purple-200"
+            @click.stop="onItemClick({ item, index })"
           >
             <!--You can override the whole row-->
             <slot name="row" :item="item" :index="index">
@@ -59,7 +53,6 @@ import Vue, { PropType } from 'vue'
 
 // Utilities
 import debounce from 'lodash/debounce'
-import cloneDeep from 'lodash/cloneDeep'
 import get from 'lodash/get'
 import { v4 as uuidv4 } from 'uuid'
 import { replaceItems } from '~/utility-functions/array-manipulation'
@@ -69,10 +62,12 @@ import { ModelEnum } from '~/api/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
 // TODO: PAGINATION COMPONENT
-// TODO: SEARCH COMPONENT
+// TODO: IMPLEMENT SEARCH
+// TODO: PUSH FILTERS TO QUERY, USE UNIQUE KEYS FOR EACH TABLES TO DETERMINE WHICH QUERY BELONGS TO WHICH TABLE
+// TODO: SHOULD WORK BOTH WITH ASSIGNED MODEL AND WITH ARRAY OF ITEMS TO DISPLAY
 
 // Components
-import BaseButton from '~/base-components/BaseButton.vue'
+import TableToolbar from '~/base-components/table/TableToolbar.vue'
 
 interface HeaderItem {
   title: string
@@ -83,7 +78,7 @@ const defaultLimit = 15
 
 export default Vue.extend({
   components: {
-    BaseButton
+    TableToolbar
   },
 
   props: {
@@ -121,21 +116,16 @@ export default Vue.extend({
     // We need ids to iterate headers in template, for keys
     const mappedHeaders = this.headers.map((h) => ({ ...h, id: uuidv4() }))
 
-    const defaultMeta: Pagination = Object.freeze({
-      current_page: 1,
-      total_pages: 1,
-      total_count: 0,
-      page_size: this.limit || defaultLimit
-    })
-
-    const meta = cloneDeep(defaultMeta)
-
     return {
       loading: false,
       mappedHeaders,
       items: [],
-      defaultMeta,
-      meta,
+      meta: null as Pagination | null,
+      filters: {
+        keyword: null as string | null,
+        page: 1,
+        limit: this.limit || defaultLimit
+      },
       fetchItemsDebounced: null as null | ReturnType<typeof debounce>
     }
   },
@@ -151,14 +141,17 @@ export default Vue.extend({
   },
 
   computed: {
-    toolbarShown() {
-      return !!(this.title || this.creatable)
+    toolbarShown(): boolean {
+      return !!(this.title || this.searchable || this.creatable)
+    },
+    paginationShown(): boolean {
+      return !!this.meta
     }
   },
 
-  beforeDestroy() {
-    this.fetchItemsDebounced?.cancel?.()
-  },
+  // beforeDestroy() {
+  //   this.fetchItemsDebounced?.cancel?.()
+  // },
 
   methods: {
     get,
@@ -188,14 +181,11 @@ export default Vue.extend({
       }
     },
 
-    // Don't pass in anything to reset pagination to default
     refreshPagination(fetchedMeta: Pagination) {
-      const { meta, defaultMeta } = this
+      this.$set(this, 'meta', fetchedMeta)
+    },
 
-      meta.current_page = fetchedMeta?.current_page || defaultMeta.current_page
-      meta.total_pages = fetchedMeta?.total_pages || defaultMeta.total_pages
-      meta.total_count = fetchedMeta?.total_count || defaultMeta.total_count
-    }
+    onItemClick() {}
   }
 })
 </script>
