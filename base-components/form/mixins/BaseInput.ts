@@ -9,6 +9,8 @@ import {
 } from '~/utility-functions/formatters'
 import { DayJsGranularityEnum } from '~/validations/enums/DayJsGranularityEnum'
 
+const numericFormatter = new Intl.NumberFormat('de-DE')
+
 export default Vue.extend({
   props: {
     id: {
@@ -34,10 +36,6 @@ export default Vue.extend({
     autofocus: {
       type: Boolean,
       default: false
-    },
-    charMaxLength: {
-      type: [Number, String],
-      default: null
     }
   },
 
@@ -49,6 +47,9 @@ export default Vue.extend({
   },
 
   computed: {
+    characterMaxLength() {
+      return this.validationObject?.$params?.maxLength?.max || null
+    },
     errorMessage() {
       if (!this.validationObject) {
         return null
@@ -68,8 +69,6 @@ export default Vue.extend({
         minDate
       } = this.validationObject
 
-      const numericFormatter = new Intl.NumberFormat('de-DE')
-
       const calculateDateFormattingOptions = (
         granularity = DayJsGranularityEnum.Millisecond
       ) => {
@@ -83,7 +82,7 @@ export default Vue.extend({
           fractionalSecondDigits: 3
         }
 
-        // TODO: napisi ovo kako bog zapovjeda..
+        // TODO: napisi ovo kako spada..
         if (granularity === DayJsGranularityEnum.Second) {
           delete formattingOptions.fractionalSecondDigits
         } else if (granularity === DayJsGranularityEnum.Minute) {
