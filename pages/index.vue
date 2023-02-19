@@ -8,7 +8,6 @@
     >
       <template #row="{ item, index }">
         <td>{{ `#${index + 1}` }}</td>
-        <td>{{ item.name || '-' }}</td>
         <td>
           <time class="whitespace-nowrap">{{
             formatDate(get(item, 'attributes.updated_at')) || '-'
@@ -50,12 +49,8 @@ export default Vue.extend({
 
       tableHeaders: [
         {
-          key: 'orderNumber',
+          key: 'order',
           title: '#'
-        },
-        {
-          key: 'name',
-          title: 'Name'
         },
         {
           key: 'updatedAt',
@@ -69,7 +64,7 @@ export default Vue.extend({
     get,
     formatDate,
     onItemClick({ item }: { item: OrganizationMembership }) {
-      const personId = item.relationships?.people?.data?.id
+      const personId = item.relationships?.person?.data?.id
 
       if (!personId) {
         this.$toast.error('personId is not defined')

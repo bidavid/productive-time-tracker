@@ -81,11 +81,25 @@ import { replaceItems } from '~/utility-functions/array-manipulation'
 
 // Types
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
-import { Pagination } from '~/api/types/Pagination'
+import { Pagination, PaginationFilters } from '~/api/types/Pagination'
 
 // Components
 import TableToolbar from '~/base-components/table/TableToolbar.vue'
 import TablePagination from '~/base-components/table/TablePagination.vue'
+
+function extractPaginationParams(page: number, limit: number) {
+  const params: Partial<PaginationFilters> = {}
+
+  if (page) {
+    params['page[number]'] = page
+  }
+
+  if (limit) {
+    params['page[size]'] = limit
+  }
+
+  return params
+}
 
 // Defaults
 const defaultLimit = 15
@@ -198,13 +212,13 @@ export default Vue.extend({
 
         const { page, limit } = this.filters
 
-        const { data, meta } = await this.$api[this.assignedModel].getList({
-          page,
-          limit
-        })
+        const { data, meta, included } = await this.$api[
+          this.assignedModel
+        ].getList(extractPaginationParams(page, limit))
 
         replaceItems(this.items, data)
         this.refreshPagination(meta)
+        this.$emit('load', { data, meta, included })
       } catch (e) {
         this.$toast?.error?.(
           `An error occured while fetching ${this.assignedModel} items`
