@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: ['@nuxtjs/eslint-config-typescript'],
   rules: {
+    'arrow-parens': ['error', 'always'],
     'space-before-function-paren': [
       'error',
       {
