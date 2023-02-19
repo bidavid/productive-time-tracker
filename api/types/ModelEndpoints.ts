@@ -1,5 +1,5 @@
 // Types
-import { PaginatedResponse } from '~/api/types/Pagination'
+import { PaginatedResponse } from './Pagination'
 
 export interface ModelEndpoints<T> {
   getList(): Promise<PaginatedResponse<T>>

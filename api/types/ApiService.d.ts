@@ -1,10 +1,10 @@
 // Enums
-import { ModelTypeEnum } from '~/api/enums/ModelType'
+import { ModelEnum } from '../enums/ModelEnum'
 
 // Types
-import { ModelEndpoints } from '~/api/types/ModelEndpoints'
-import { OrganizationMembership } from '~/api/models/organization-memberships/OrganizationMembership'
+import { ModelEndpoints } from './ModelEndpoints'
+import { OrganizationMembership } from '../models/organization-memberships/OrganizationMembership'
 
 export interface ApiService {
-  [ModelTypeEnum.OrganizationMemberships]: ModelEndpoints<OrganizationMembership>
+  [ModelEnum.OrganizationMemberships]: ModelEndpoints<OrganizationMembership>
 }

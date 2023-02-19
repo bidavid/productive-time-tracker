@@ -1,3 +1,3 @@
-export enum ModelTypeEnum {
+export enum ModelEnum {
   OrganizationMemberships = 'organizationMemberships'
 }

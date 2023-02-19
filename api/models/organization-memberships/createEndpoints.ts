@@ -1,8 +1,8 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
+import { PaginatedResponse } from '../../types/Pagination'
+import { ModelEndpoints } from '../../types/ModelEndpoints'
 import { OrganizationMembership } from './OrganizationMembership'
-import { PaginatedResponse } from '~/api/types/Pagination'
-import { ModelEndpoints } from '~/api/types/ModelEndpoints'
 
 // Every endpoint factory has to return ModelEndpoints type
 export default (axios: NuxtAxiosInstance): ModelEndpoints<OrganizationMembership> => ({
