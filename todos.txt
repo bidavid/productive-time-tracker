@@ -1,0 +1,26 @@
+COMPONENTS:
+  BaseTableToolbar
+  BaseTablePagination
+  Base Button
+  Base input wrapper
+    TextInput
+    TextAreaInput
+    DateInput
+  BaseSideModal
+    TimeTrackingSideModal
+
+FEATURES:
+  BaseTable -> search
+
+PAGES:
+  organizationMemberships page
+  _personId page
+
+MISC:
+  default layout
+  error layout
+  Header
+  Sidebar
+  Authentication
+  SEO helper
+  Few Unit tests
