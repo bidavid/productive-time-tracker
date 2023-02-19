@@ -7,6 +7,8 @@ module.exports = {
   extends: ['@nuxtjs/eslint-config-typescript'],
   rules: {
     'arrow-parens': ['error', 'always'],
+    '@typescript-eslint/camelcase': 'off',
+    camelcase: 'off',
     'space-before-function-paren': [
       'error',
       {
