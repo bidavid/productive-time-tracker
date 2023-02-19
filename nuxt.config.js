@@ -74,8 +74,5 @@ export default {
     duration: 2500,
     keepOnHover: true,
     theme: 'bubble'
-  },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  }
 }

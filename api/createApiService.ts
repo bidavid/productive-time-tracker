@@ -12,6 +12,7 @@ export const createApiService = (axios: NuxtAxiosInstance) => {
   if (!instance) {
     instance = {
       [ModelEnum.OrganizationMemberships]: OrganizationMembershipsEndpointFactory(axios)
+
     }
   }
 
