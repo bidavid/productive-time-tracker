@@ -17,7 +17,7 @@
 import Vue from 'vue'
 
 // Components
-import DataTable from '~/base-components/data-table/DataTable.vue'
+import DataTable from '~/base-components/table/DataTable.vue'
 
 // Enums
 import { ModelEnum } from '~/api/enums/ModelEnum'

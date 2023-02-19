@@ -1,6 +1,11 @@
 <template>
   <div class="flex items-center justify-between space-x-4 mb-3">
-    <strong class="block font-medium text-title-3">{{ title }}</strong>
+    <div class="flex items-center space-x-3">
+      <strong class="block font-medium text-title-3">{{ title }}</strong>
+      <transition name="fade">
+        <BaseSpinner v-show="loading" />
+      </transition>
+    </div>
 
     <div v-if="actionBarShown" class="flex items-center space-x-3">
       <input
@@ -28,10 +33,12 @@ import debounce from 'lodash/debounce'
 
 // Components
 import BaseButton from '~/base-components/BaseButton.vue'
+import BaseSpinner from '~/base-components/BaseSpinner.vue'
 
 export default Vue.extend({
   components: {
-    BaseButton
+    BaseButton,
+    BaseSpinner
   },
 
   props: {
@@ -86,9 +93,9 @@ export default Vue.extend({
     }
   },
 
-  beforeDestroy() {
-    this.emitSearchDebounced?.cancel?.()
-  },
+  // beforeDestroy() {
+  //   this.emitSearchDebounced?.cancel?.()
+  // },
 
   methods: {
     emitSearch() {

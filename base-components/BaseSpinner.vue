@@ -1,8 +1,10 @@
 <template>
-  <div :style="computedStyle" class="rounded-full animate-spin" />
+  <div class="rounded-full">
+    <div :style="computedStyle" class="rounded-full animate-spin" />
+  </div>
 </template>
 <script lang="ts">
-import Vue from 'vue/types/index'
+import Vue from 'vue'
 
 export default Vue.extend({
   props: {
@@ -12,26 +14,26 @@ export default Vue.extend({
     },
     borderWidth: {
       type: String,
-      default: '2px'
+      default: '3px'
     },
     pathColor: {
       type: String,
-      default: '#f0f2f4'
+      default: '#d1d5db'
     },
     spinnerColor: {
       type: String,
-      default: '#324076'
+      default: '#7c3aed'
     }
   },
 
   computed: {
     computedStyle() {
       return `
-        height: ${this.size};
-        width:  ${this.size};
-        border-width: ${this.borderWidth};
-        border-color: ${this.pathColor};
-        border-top-color: ${this.spinnerColor};
+        height:${this.size};
+        width: ${this.size};
+        border-width:${this.borderWidth};
+        border-color:${this.pathColor};
+        border-top-color:${this.spinnerColor};
       `
     }
   }

@@ -32,16 +32,14 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/vuelidate.js',
-    '~/plugins/apiServiceInject.ts'
-  ],
+  plugins: ['~/plugins/vuelidate.js', '~/plugins/apiServiceInject.ts'],
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/styles/tailwind-preflight.css',
     '~/assets/styles/typography.css',
     '~/assets/styles/global.css',
+    '~/assets/styles/transitions.css',
     '~/assets/icons/icons.css'
   ],
 
