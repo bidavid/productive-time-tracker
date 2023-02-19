@@ -6,14 +6,14 @@
       class="flex items-center justify-between space-x-4 mb-3"
     >
       <strong class="block font-medium text-title-3">{{ title }}</strong>
-      <button
+
+      <BaseButton
         v-if="creatable"
+        text="Create"
+        icon="icon-plus"
+        icon-size="text-lg"
         :disabled="loading"
-        class="px-3 py-2 bg-blue-500 text-white flex items-center space-x-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <em class="icon-plus text-lg" />
-        <span>Create</span>
-      </button>
+      />
     </div>
 
     <table class="w-full bg-white border border-gray-400">
@@ -68,6 +68,12 @@ import { replaceItems } from '~/utility-functions/array-manipulation'
 import { ModelEnum } from '~/api/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
+// TODO: PAGINATION COMPONENT
+// TODO: SEARCH COMPONENT
+
+// Components
+import BaseButton from '~/base-components/BaseButton.vue'
+
 interface HeaderItem {
   title: string
   key: string
@@ -75,12 +81,12 @@ interface HeaderItem {
 
 const defaultLimit = 15
 
-// TODO: PAGINATION COMPONENT
-// TODO: SEARCH COMPONENT
-
 export default Vue.extend({
+  components: {
+    BaseButton
+  },
+
   props: {
-    // General
     title: {
       type: String,
       default: null
@@ -140,7 +146,7 @@ export default Vue.extend({
     }
 
     this.fetchItemsDebounced = debounce(this.fetchItems, 350)
-    // Do not debounce initial fetch, it cannot be awaited (won't wait for us on SSR)
+    // Do not debounce initial fetch, it cannot be awaited (won't wait for us on SSR and initial render result in empty table)
     await this.fetchItems()
   },
 
@@ -182,18 +188,13 @@ export default Vue.extend({
       }
     },
 
+    // Don't pass in anything to reset pagination to default
     refreshPagination(fetchedMeta: Pagination) {
       const { meta, defaultMeta } = this
 
-      if (!fetchedMeta) {
-        meta.current_page = defaultMeta.current_page
-        meta.total_pages = defaultMeta.total_pages
-        meta.total_count = defaultMeta.total_count
-      } else {
-        meta.current_page = fetchedMeta.current_page
-        meta.total_pages = fetchedMeta.total_pages
-        meta.total_count = fetchedMeta.total_count
-      }
+      meta.current_page = fetchedMeta?.current_page || defaultMeta.current_page
+      meta.total_pages = fetchedMeta?.total_pages || defaultMeta.total_pages
+      meta.total_count = fetchedMeta?.total_count || defaultMeta.total_count
     }
   }
 })
