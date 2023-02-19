@@ -1,13 +1,18 @@
 <template>
   <div class="text-body-2">
-    <DataTable title="Organization memberships" :assigned-model="enums.ModelEnum.OrganizationMemberships" :headers="tableHeaders" creatable />
+    <DataTable
+      title="Organization memberships"
+      :assigned-model="enums.ModelEnum.OrganizationMemberships"
+      :headers="tableHeaders"
+      creatable
+    />
 
     <a href="/">nesto</a>
     <em class="icon-search" />
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 // Classes
 import Vue from 'vue'
 
@@ -23,7 +28,7 @@ export default Vue.extend({
     DataTable
   },
 
-  data () {
+  data() {
     return {
       enums: {
         ModelEnum

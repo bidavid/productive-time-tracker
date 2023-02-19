@@ -1,4 +1,4 @@
 export enum ModelEnum {
-  OrganizationMemberships = 'organizationMemberships',
+  OrganizationMemberships = 'organizationMemberships'
   // People = 'people',
 }
