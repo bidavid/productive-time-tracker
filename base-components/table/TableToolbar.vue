@@ -21,6 +21,7 @@
         icon-size="text-lg"
         :disabled="loading"
         class="flex-shrink-0"
+        @clicked="$emit('creation-clicked')"
       />
     </div>
   </div>
@@ -98,6 +99,7 @@ export default Vue.extend({
   // },
 
   methods: {
+    // TODO: CREATE ENUM FOR ALL EVENTS
     emitSearch() {
       this.$emit('search-performed', { keyword: this.computedKeyword })
     }

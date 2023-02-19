@@ -16,10 +16,10 @@ PAGES:
   _personId page
 
 MISC:
-  default layout
   error layout
   Header
   Sidebar
   Authentication
   SEO helper
-  Few Unit tests
+  Unit tests
+  font

@@ -8,6 +8,7 @@
       :searchable="searchable"
       :loading="loading"
       class="mb-4"
+      @creation-clicked="$emit('creation-clicked')"
     />
 
     <table class="w-full bg-white border border-gray-400 table-auto">
@@ -62,6 +63,9 @@ import { replaceItems } from '~/utility-functions/array-manipulation'
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 import { Pagination } from '~/api/types/Pagination'
 
+// Defaults
+import { defaultLimit } from '~/base-components/table/defaults'
+
 // TODO: PAGINATION COMPONENT
 // TODO: IMPLEMENT SEARCH
 // TODO: PUSH FILTERS TO QUERY, USE UNIQUE KEYS FOR EACH TABLES TO DETERMINE WHICH QUERY BELONGS TO WHICH TABLE
@@ -74,8 +78,6 @@ interface HeaderItem {
   title: string
   key: string
 }
-
-const defaultLimit = 15
 
 export default Vue.extend({
   components: {
@@ -169,7 +171,12 @@ export default Vue.extend({
       try {
         this.startLoading()
 
-        const { data, meta } = await this.$api[this.assignedModel].getList()
+        const { page, limit } = this.filters
+
+        const { data, meta } = await this.$api[this.assignedModel].getList({
+          page,
+          limit
+        })
 
         replaceItems(this.items, data)
         this.refreshPagination(meta)
