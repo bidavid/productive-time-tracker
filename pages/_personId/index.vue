@@ -54,8 +54,8 @@
         @confirm-clicked="onConfirm"
       >
         <template>
-          <div class="grid gap-y-4">
-            <TextInput
+          <div class="grid gap-y-5">
+            <TextAreaInput
               v-model="sideModal.form.note"
               label="Note"
               placeholder="Enter note"
@@ -63,7 +63,13 @@
               :validation-object="$v.sideModal.form.note"
             />
 
-            <input v-model="sideModal.form.date" type="date" />
+            <DateInput
+              v-model="sideModal.form.date"
+              label="Date"
+              placeholder="Pick date"
+              :disabled="sideModal.submitting"
+              :validation-object="$v.sideModal.form.date"
+            />
           </div>
         </template>
       </BaseSideModal>
@@ -75,33 +81,36 @@
 // Classes
 import Vue from 'vue'
 
-// Components
-import { maxLength, required } from 'vuelidate/lib/validators'
-import DataTable from '~/base-components/table/DataTable.vue'
-import BaseSideModal from '~/base-components/modals/BaseSideModal.vue'
-
-// Enums
-import { ModelEnum } from '~/api/models/enums/ModelEnum'
-
 // Utilities
+import { maxLength, required } from 'vuelidate/lib/validators'
 import {
   formatCurrency,
   formatDate,
   formatMinutesToHoursAndMinutes
 } from '~/utilities/functions/formatters'
+import { maxDate } from '~/validations/additional-validators'
+
+// Components
+import DataTable from '~/base-components/table/DataTable.vue'
+import BaseSideModal from '~/base-components/modals/BaseSideModal.vue'
+import TextAreaInput from '~/base-components/form/TextAreaInput.vue'
+import DateInput from '~/base-components/form/DateInput.vue'
+
+// Enums
+import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 // Types
 import {
   TimeEntry,
   TimeEntryFilters
 } from '~/api/models/time-entries/TimeEntry'
-import TextInput from '~/base-components/form/TextInput.vue'
 
 export default Vue.extend({
   name: 'TimeEntries',
 
   components: {
-    TextInput,
+    DateInput,
+    TextAreaInput,
     BaseSideModal,
     DataTable
   },
@@ -318,7 +327,8 @@ export default Vue.extend({
       sideModal: {
         form: {
           date: {
-            required
+            required,
+            maxDate: maxDate(new Date(), true)
           },
           note: {
             required,

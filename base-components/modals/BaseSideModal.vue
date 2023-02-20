@@ -26,7 +26,9 @@
         <div class="px-4 overflow-x-hidden overflow-y-auto">
           <slot />
         </div>
-        <div class="p-4 flex items-center justify-between space-x-4">
+        <div
+          class="absolute bottom-0 left-0 right-0 p-4 flex items-center justify-between space-x-4"
+        >
           <BaseButton
             v-if="confirmable"
             text="Confirm"

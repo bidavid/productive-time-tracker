@@ -3,13 +3,11 @@
     :input-id="inputId"
     :label="label"
     :error-message="errorMessage"
-    :character-max-length="characterMaxLength"
-    :current-length="characterLength"
   >
     <input
       :id="inputId"
       v-model="computedValue"
-      type="text"
+      type="date"
       :placeholder="placeholder"
       :disabled="disabled"
       :autofocus="autofocus"
@@ -48,13 +46,6 @@ export default Vue.extend({
       set(v) {
         this.$emit('input', v || null)
       }
-    },
-    characterLength(): number {
-      if (!this.computedValue) {
-        return 0
-      }
-
-      return (this.computedValue as string).length || 0
     }
   }
 })
