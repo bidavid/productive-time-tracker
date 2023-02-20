@@ -1,4 +1,5 @@
-const { API_BASE_URL, PERSONAL_ACCESS_TOKEN, ORGANIZATION_ID } = process.env
+const { API_BASE_URL, PERSONAL_ACCESS_TOKEN, ORGANIZATION_ID, SERVICE_ID } =
+  process.env
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -60,7 +61,7 @@ export default {
     }
   },
 
-  publicRuntimeConfig: { API_BASE_URL },
+  publicRuntimeConfig: { API_BASE_URL, SERVICE_ID },
 
   typescript: {
     typeCheck: {

@@ -126,7 +126,7 @@ export default Vue.extend({
     } else {
       form.personId = this.personId
       // TODO: FETCH SERVICES
-      form.serviceId = 2728168
+      form.serviceId = this.$config.SERVICE_ID
     }
     return {
       submitting: false,

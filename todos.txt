@@ -1,6 +1,6 @@
 COMPONENTS:
   BaseTableHeader
-    SelectInput
+  SelectInput FOR SERVICES
 
 FEATURES:
   BaseTable -> search

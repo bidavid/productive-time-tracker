@@ -6,10 +6,17 @@
       :headers="tableHeaders"
       @item-clicked="onMembershipClick"
     >
-      <template #row="{ item }">
+      <template #row="{ item: { attributes, relationships } }">
+        <td>
+          {{ get(relationships, 'organization.data.id') || '-' }}
+        </td>
+        <td>
+          {{ get(relationships, 'person.data.id') || '-' }}
+        </td>
+
         <td>
           <time class="whitespace-nowrap">{{
-            formatDate(get(item, 'attributes.updated_at')) || '-'
+            formatDate(get(attributes, 'updated_at')) || '-'
           }}</time>
         </td>
       </template>
@@ -47,6 +54,14 @@ export default Vue.extend({
       },
 
       tableHeaders: [
+        {
+          key: 'organization_id',
+          title: 'Organization ID'
+        },
+        {
+          key: 'person_id',
+          title: 'Person ID'
+        },
         {
           key: 'updated_at',
           title: 'Last update'
