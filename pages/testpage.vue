@@ -23,7 +23,7 @@ import TextInput from '~/base-components/form/TextInput.vue'
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 // Utilities
-import { formatDate } from '~/utility-functions/formatters'
+import { formatDate } from '~/utilities/functions/formatters'
 
 export default Vue.extend({
   name: 'OrganizationMemberships',

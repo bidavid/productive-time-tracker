@@ -77,7 +77,7 @@ import Vue, { PropType } from 'vue'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 import { v4 as uuidv4 } from 'uuid'
-import { replaceItems } from '~/utility-functions/array-manipulation'
+import { replaceItems } from '~/utilities/functions/array-manipulation'
 
 // Types
 import { ModelEnum } from '~/api/models/enums/ModelEnum'

@@ -29,7 +29,7 @@ import DataTable from '~/base-components/table/DataTable.vue'
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 // Utilities
-import { formatDate } from '~/utility-functions/formatters'
+import { formatDate } from '~/utilities/functions/formatters'
 
 // Types
 import { OrganizationMembership } from '~/api/models/organization-memberships/OrganizationMembership'

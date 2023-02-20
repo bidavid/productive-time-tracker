@@ -10,8 +10,8 @@ FEATURES:
   BaseTable -> search
 
 PAGES:
-  organizationMemberships page
-  _personId page
+  organizationMemberships
+  _personId
 
 MISC:
   error layout

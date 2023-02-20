@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import {
   DateFormattingOptions,
   formatDate
-} from '~/utility-functions/formatters'
+} from '~/utilities/functions/formatters'
 import { DayJsGranularityEnum } from '~/validations/enums/DayJsGranularityEnum'
 
 const numericFormatter = new Intl.NumberFormat('de-DE')
