@@ -15,7 +15,16 @@
           label="Note"
           placeholder="Enter note"
           :disabled="submitting"
+          autofocus
           :validation-object="$v.form.note"
+        />
+
+        <NumberInput
+          v-model="form.time"
+          label="Time / mins"
+          placeholder="Enter duration in minutes"
+          :disabled="submitting"
+          :validation-object="$v.form.time"
         />
 
         <DateInput
@@ -32,7 +41,7 @@
 <script lang="ts">
 // Types
 import Vue, { PropType } from 'vue'
-import { maxLength, required } from 'vuelidate/lib/validators'
+import { maxLength, required, minValue } from 'vuelidate/lib/validators'
 import { TimeEntry } from '~/api/models/time-entries/TimeEntry'
 
 // Components
@@ -42,11 +51,14 @@ import DateInput from '~/base-components/form/DateInput.vue'
 
 // Utilities
 import { maxDate } from '~/validations/additional-validators'
+
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
+import NumberInput from '~/base-components/form/NumberInput.vue'
 
 function createTimeEntryPayload(
   note?: string,
   date?: string,
+  time?: number,
   personId?: number,
   serviceId?: number
 ): { data: Partial<TimeEntry> } {
@@ -59,7 +71,8 @@ function createTimeEntryPayload(
   if (note || date) {
     payload.data.attributes = {
       ...(note && { note }),
-      ...(date && { date })
+      ...(date && { date }),
+      ...(time && { time })
     }
   }
 
@@ -90,6 +103,7 @@ function createTimeEntryPayload(
 
 export default Vue.extend({
   components: {
+    NumberInput,
     BaseSideModal,
     TextAreaInput,
     DateInput
@@ -110,17 +124,19 @@ export default Vue.extend({
     const form = {
       note: null as string | null,
       date: null as string | null,
+      time: null as number | null,
       serviceId: null as number | null,
       personId: null as number | null
     }
 
     if (this.editedItem) {
       // cloneDeep not needed here
-      const { note, date } = this.editedItem.attributes
+      const { note, date, time } = this.editedItem.attributes
       const { person, service } = this.editedItem.relationships
 
       form.note = note || null
       form.date = date || null
+      form.time = time || null
       form.personId = person.data!.id
       form.serviceId = service.data!.id
     } else {
@@ -153,6 +169,7 @@ export default Vue.extend({
       const { form } = this
       form.note = null
       form.date = null
+      form.time = null
       form.personId = null
       form.serviceId = null
 
@@ -195,11 +212,12 @@ export default Vue.extend({
 
     async createTimeEntry() {
       try {
-        const { note, date, personId, serviceId } = this.form
+        const { note, date, time, personId, serviceId } = this.form
 
         const payload = createTimeEntryPayload(
           note!,
           date!,
+          time!,
           personId!,
           serviceId!
         )
@@ -219,9 +237,9 @@ export default Vue.extend({
 
     async patchTimeEntry() {
       try {
-        const { note, date } = this.form
+        const { note, date, time } = this.form
 
-        const payload = createTimeEntryPayload(note!, date!)
+        const payload = createTimeEntryPayload(note!, date!, time!)
 
         // @ts-ignore how..
         await this.$api[ModelEnum.TimeEntries].update?.(
@@ -264,13 +282,17 @@ export default Vue.extend({
   validations() {
     return {
       form: {
+        note: {
+          required,
+          maxLength: maxLength(255)
+        },
         date: {
           required,
           maxDate: maxDate(new Date(), true)
         },
-        note: {
+        time: {
           required,
-          maxLength: maxLength(255)
+          minValue: minValue(0)
         }
       }
     }
