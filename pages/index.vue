@@ -6,8 +6,7 @@
       :headers="tableHeaders"
       @item-click="onItemClick"
     >
-      <template #row="{ item, index }">
-        <td>{{ `#${index + 1}` }}</td>
+      <template #row="{ item }">
         <td>
           <time class="whitespace-nowrap">{{
             formatDate(get(item, 'attributes.updated_at')) || '-'
@@ -49,11 +48,7 @@ export default Vue.extend({
 
       tableHeaders: [
         {
-          key: 'order',
-          title: '#'
-        },
-        {
-          key: 'updatedAt',
+          key: 'updated_at',
           title: 'Last update'
         }
       ]

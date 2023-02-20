@@ -1,17 +1,41 @@
 <template>
   <div>
+    <nuxt-link to="/" class="flex items-center space-x-3 text-blue-600 group">
+      <em class="icon-caret-left" />
+      <span class="group-hover:underline">Back to memberships</span>
+    </nuxt-link>
     <DataTable
-      title="Time entries for person"
+      :title="tableTitle"
       :assigned-model="enums.ModelEnum.TimeEntries"
       :headers="tableHeaders"
+      :additional-filters="timeEntryFilters"
+      class="mt-3"
     >
-      <template #row="{ item, index }">
-        <td>{{ `#${index + 1}` }}</td>
-        <td>{{ item.name || '-' }}</td>
+      <template
+        #row="{
+          item: {
+            attributes: { date, note, time, billable_time, cost, currency }
+          }
+        }"
+      >
+        <td>
+          <time class="whitespace-nowrap">{{ formatDate(date) || '-' }}</time>
+        </td>
+        <td>
+          {{ note || '-' }}
+        </td>
         <td>
           <time class="whitespace-nowrap">{{
-            formatDate(get(item, 'attributes.updated_at')) || '-'
+            formatMinutesToHoursAndMinutes(time) || '-'
           }}</time>
+        </td>
+        <td>
+          <time class="whitespace-nowrap">{{
+            formatMinutesToHoursAndMinutes(billable_time) || '-'
+          }}</time>
+        </td>
+        <td class="whitespace-nowrap">
+          {{ formatCurrency(cost, currency) || '-' || '-' }}
         </td>
       </template>
     </DataTable>
@@ -23,19 +47,38 @@
 import Vue from 'vue'
 
 // Components
-import get from 'lodash/get'
 import DataTable from '~/base-components/table/DataTable.vue'
 
 // Enums
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 // Utilities
-import { formatDate } from '~/utility-functions/formatters'
+import {
+  formatCurrency,
+  formatDate,
+  formatMinutesToHoursAndMinutes
+} from '~/utility-functions/formatters'
+import { TimeEntryFilters } from '~/api/models/time-entries/TimeEntry'
 
 export default Vue.extend({
   name: 'TimeEntries',
+
   components: {
     DataTable
+  },
+
+  async asyncData({ $api, params, error }) {
+    try {
+      const person = await $api.people.getSingle(+params.personId)
+
+      return {
+        person
+      }
+    } catch (e) {
+      error({
+        message: 'An error occured while fetching Person details'
+      })
+    }
   },
 
   data() {
@@ -46,24 +89,48 @@ export default Vue.extend({
 
       tableHeaders: [
         {
-          key: 'orderNumber',
-          title: '#'
+          key: 'date',
+          title: 'Date'
         },
         {
-          key: 'name',
-          title: 'Name'
+          key: 'note',
+          title: 'Note'
         },
+
         {
-          key: 'updatedAt',
-          title: 'Last update'
+          key: 'time',
+          title: 'Time'
+        },
+
+        {
+          key: 'billable_time',
+          title: 'Billable time'
+        },
+
+        {
+          key: 'cost',
+          title: 'Cost'
         }
       ]
     }
   },
 
+  computed: {
+    tableTitle(): string {
+      const { first_name, last_name } = this.person.data.attributes
+      return `Time entries for person: ${first_name} ${last_name}`
+    },
+    timeEntryFilters(): TimeEntryFilters {
+      return {
+        person_id: [+this.person.data.id]
+      }
+    }
+  },
+
   methods: {
-    get,
-    formatDate
+    formatCurrency,
+    formatDate,
+    formatMinutesToHoursAndMinutes
   }
 })
 </script>
