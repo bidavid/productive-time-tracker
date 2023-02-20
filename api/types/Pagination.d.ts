@@ -7,10 +7,15 @@ export interface Pagination {
   page_size: number
 }
 
+export interface IncludedInfo {
+  id: number
+  type: ModelEnum
+}
+
 export interface PaginatedResponse<T> {
   data: T[]
   meta: Pagination
-  included: { id: number; type: ModelEnum }[]
+  included: IncludedInfo[]
 }
 
 export interface PaginationFilters {

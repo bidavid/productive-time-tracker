@@ -42,7 +42,7 @@
           <tr
             v-for="(item, index) in items"
             :key="item.id"
-            class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-purple-200"
+            class="border-b last:border-0 border-gray-400 transition-colors cursor-pointer hover:bg-purple-100"
             @click.stop="onItemClick(item, index)"
           >
             <!--You can override the whole row-->
@@ -226,13 +226,12 @@ export default Vue.extend({
           Object.assign(params, additionalFilters)
         }
 
-        const { data, meta, included } = await this.$api[
-          this.assignedModel
-        ].getList(params)
+        const { data, meta } = await this.$api[this.assignedModel].getList(
+          params
+        )
 
         replaceItems(this.items, data)
         this.refreshPagination(meta)
-        this.$emit('load', { data, meta, included })
       } catch (e) {
         this.$toast?.error?.(
           `An error occured while fetching ${this.assignedModel} items`

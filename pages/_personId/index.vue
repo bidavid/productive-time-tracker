@@ -9,7 +9,8 @@
       :assigned-model="enums.ModelEnum.TimeEntries"
       :headers="tableHeaders"
       :additional-filters="timeEntriesFilters"
-      class="mt-3"
+      creatable
+      class="mt-4"
     >
       <template
         #row="{
@@ -118,7 +119,7 @@ export default Vue.extend({
   computed: {
     tableTitle(): string {
       const { first_name, last_name } = this.person.data.attributes
-      return `Time entries for person: ${first_name} ${last_name}`
+      return `${first_name} ${last_name}'s time entries`
     },
     timeEntriesFilters(): TimeEntryFilters {
       const { personId } = this.$route.params

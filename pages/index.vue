@@ -4,7 +4,7 @@
       title="Organization memberships"
       :assigned-model="enums.ModelEnum.OrganizationMemberships"
       :headers="tableHeaders"
-      @item-click="onItemClick"
+      @item-click="onMembershipClick"
     >
       <template #row="{ item }">
         <td>
@@ -58,7 +58,7 @@ export default Vue.extend({
   methods: {
     get,
     formatDate,
-    onItemClick({ item }: { item: OrganizationMembership }) {
+    onMembershipClick({ item }: { item: OrganizationMembership }) {
       const personId = item.relationships?.person?.data?.id
 
       if (!personId) {
