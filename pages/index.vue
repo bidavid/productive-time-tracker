@@ -4,7 +4,7 @@
       title="Organization memberships"
       :assigned-model="enums.ModelEnum.OrganizationMemberships"
       :headers="tableHeaders"
-      @item-click="onMembershipClick"
+      @item-clicked="onMembershipClick"
     >
       <template #row="{ item }">
         <td>

@@ -15,6 +15,7 @@ interface ModelAttributes {
 }
 
 export interface Model<T> {
+  id: number
   type: T
   attributes: ModelAttributes
   relationships: Record<string, ModelRelationship>

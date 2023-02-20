@@ -1,17 +1,9 @@
 COMPONENTS:
   BaseTableHeader
     SelectInput
-    TextAreaInput
-    DateInput
-  BaseSideModal
-    TimeTrackingSideModal
 
 FEATURES:
   BaseTable -> search
-
-PAGES:
-  organizationMemberships
-  _personId
 
 MISC:
   error layout

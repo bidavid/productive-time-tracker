@@ -21,5 +21,13 @@ export default (axios: NuxtAxiosInstance): ModelEndpoints<TimeEntry> => ({
 
   create(payload): Promise<TimeEntry> {
     return axios.$post('time_entries', payload)
+  },
+
+  update(id: number, payload): Promise<TimeEntry> {
+    return axios.$patch(`time_entries/${id}`, payload)
+  },
+
+  delete(id: number): Promise<TimeEntry> {
+    return axios.$delete(`time_entries/${id}`)
   }
 })

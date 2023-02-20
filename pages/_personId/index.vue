@@ -12,6 +12,7 @@
       :additional-filters="timeEntriesFilters"
       creatable
       class="mt-4"
+      @item-clicked="openSideModal($event.item)"
       @creation-clicked="openSideModal"
     >
       <template
@@ -44,35 +45,13 @@
     </DataTable>
 
     <transition name="fade">
-      <BaseSideModal
+      <TimeEntrySideModal
         v-if="sideModal.opened"
-        :title="sideModalTitle"
-        confirmable
-        :removable="isEditing"
-        :loading="sideModal.submitting"
-        @close-clicked="closeSideModal"
-        @confirm-clicked="onConfirm"
-      >
-        <template>
-          <div class="grid gap-y-5">
-            <TextAreaInput
-              v-model="sideModal.form.note"
-              label="Note"
-              placeholder="Enter note"
-              :disabled="sideModal.submitting"
-              :validation-object="$v.sideModal.form.note"
-            />
-
-            <DateInput
-              v-model="sideModal.form.date"
-              label="Date"
-              placeholder="Pick date"
-              :disabled="sideModal.submitting"
-              :validation-object="$v.sideModal.form.date"
-            />
-          </div>
-        </template>
-      </BaseSideModal>
+        :edited-item="sideModal.editedItem"
+        :person-id="personId"
+        @closed="closeSideModal"
+        @success="onSuccess"
+      />
     </transition>
   </div>
 </template>
@@ -81,20 +60,15 @@
 // Classes
 import Vue from 'vue'
 
-// Utilities
-import { maxLength, required } from 'vuelidate/lib/validators'
 import {
   formatCurrency,
   formatDate,
   formatMinutesToHoursAndMinutes
 } from '~/utilities/functions/formatters'
-import { maxDate } from '~/validations/additional-validators'
 
 // Components
 import DataTable from '~/base-components/table/DataTable.vue'
-import BaseSideModal from '~/base-components/modals/BaseSideModal.vue'
-import TextAreaInput from '~/base-components/form/TextAreaInput.vue'
-import DateInput from '~/base-components/form/DateInput.vue'
+import TimeEntrySideModal from '~/time-entries/TimeEntrySideModal.vue'
 
 // Enums
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
@@ -109,9 +83,7 @@ export default Vue.extend({
   name: 'TimeEntries',
 
   components: {
-    DateInput,
-    TextAreaInput,
-    BaseSideModal,
+    TimeEntrySideModal,
     DataTable
   },
 
@@ -133,6 +105,11 @@ export default Vue.extend({
     return {
       enums: {
         ModelEnum
+      },
+
+      sideModal: {
+        opened: false,
+        editedItem: null as null | TimeEntry
       },
 
       tableHeaders: [
@@ -159,20 +136,7 @@ export default Vue.extend({
           key: 'cost',
           title: 'Cost'
         }
-      ],
-
-      sideModal: {
-        opened: false,
-        submitting: false,
-        editedItem: null as TimeEntry | null,
-
-        form: {
-          date: null as string | null,
-          note: null as string | null,
-          serviceId: null as number | null,
-          personId: null as number | null
-        }
-      }
+      ]
     }
   },
 
@@ -183,12 +147,6 @@ export default Vue.extend({
     tableTitle(): string {
       const { first_name, last_name } = this.person.data.attributes
       return `${first_name} ${last_name}'s time entries`
-    },
-    isEditing(): boolean {
-      return !!this.sideModal.editedItem
-    },
-    sideModalTitle(): string {
-      return `${this.isEditing ? 'Edit/Remove' : 'Create'} Time Entry`
     },
     timeEntriesFilters(): TimeEntryFilters {
       return {
@@ -203,139 +161,22 @@ export default Vue.extend({
     formatMinutesToHoursAndMinutes,
 
     openSideModal(editedItem: TimeEntry) {
-      if (editedItem) {
-        this.loadEditedItem(editedItem)
-      } else {
-        const { form } = this.sideModal
-
-        form.personId = this.personId
-        // TODO: fetch services
-        form.serviceId = 2728168
-      }
-
       this.sideModal.opened = true
-    },
 
-    loadEditedItem(editedItem: TimeEntry) {
-      this.sideModal.editedItem = editedItem
-
-      const { form } = this.sideModal
-
-      // cloneDeep not needed here
-      const { note, date } = editedItem.attributes
-      const { person, service } = editedItem.relationships
-
-      form.date = date || null
-      form.note = note || null
-      form.personId = person.data!.id
-      form.serviceId = service.data!.id
+      if (editedItem) {
+        this.sideModal.editedItem = editedItem
+      }
     },
 
     closeSideModal() {
-      const { sideModal } = this
-      sideModal.opened = false
-      sideModal.submitting = false
-      sideModal.editedItem = null
-
-      this.resetSideModalForm()
+      this.sideModal.opened = false
+      this.sideModal.editedItem = null
     },
 
-    resetSideModalForm() {
-      const { form } = this.sideModal
-      form.date = null
-      form.note = null
-      form.personId = null
-      form.serviceId = null
-
-      this.$v?.sideModal?.form?.$reset?.()
-    },
-
-    async onConfirm() {
-      this.$v?.sideModal?.form?.$touch()
-
-      if (this.$v?.sideModal?.form?.$invalid) {
-        return
-      }
-
-      this.sideModal.submitting = true
-
-      let success = false
-
-      if (this.isEditing) {
-        success = await this.patchTimeEntry()
-      } else {
-        success = await this.createTimeEntry()
-      }
-
-      if (success) {
-        this.closeSideModal()
-        // @ts-ignore
-        this.$refs?.dataTable?.fetchItemsDebounced?.()
-      }
-
-      this.sideModal.submitting = false
-    },
-
-    async createTimeEntry() {
-      try {
-        const { personId, serviceId, note, date } = this.sideModal.form
-
-        const payload = {
-          type: ModelEnum.TimeEntries,
-          attributes: {
-            note,
-            date
-          },
-          relationships: {
-            person: {
-              data: {
-                type: ModelEnum.People,
-                id: personId
-              }
-            },
-            service: {
-              data: {
-                type: ModelEnum.Services,
-                id: serviceId
-              }
-            }
-          }
-        }
-
-        // const payload = {
-        //   note,
-        //   date,
-        //   person_id: personId,
-        //   service_id: serviceId
-        // }
-
-        // @ts-ignore how..
-        await this.$api[ModelEnum.TimeEntries].create?.({ data: payload })
-
-        this.$toast.success('New Time Entry successfully created')
-        return true
-      } catch (e) {
-        console.dir(e)
-        this.$toast.error('An error occured while creating Time Entry')
-        return false
-      }
-    }
-  },
-
-  validations() {
-    return {
-      sideModal: {
-        form: {
-          date: {
-            required,
-            maxDate: maxDate(new Date(), true)
-          },
-          note: {
-            required,
-            maxLength: maxLength(255)
-          }
-        }
-      }
+    onSuccess() {
+      this.closeSideModal()
+      // @ts-ignore
+      this.$refs?.dataTable?.fetchItemsDebounced?.()
     }
   }
 })

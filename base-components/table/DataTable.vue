@@ -255,7 +255,7 @@ export default Vue.extend({
     },
 
     onItemClick(item: unknown, index: number) {
-      this.$emit('item-click', { item, index })
+      this.$emit('item-clicked', { item, index })
     }
   }
 })
