@@ -1,3 +1,11 @@
+.form-input {
+  @apply block w-full p-2 border rounded placeholder-gray-500;
+}
+
+.form-input:disabled {
+  @apply bg-gray-200 cursor-not-allowed;
+}
+
 .content-container {
   @apply w-11/12 mx-auto;
 }

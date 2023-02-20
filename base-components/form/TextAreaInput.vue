@@ -13,7 +13,7 @@
       :disabled="disabled"
       :autofocus="autofocus"
       rows="3"
-      class="block w-full p-2 border rounded placeholder-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
+      class="form-input"
       :class="[errorMessage ? 'border-red-800' : 'border-gray-400']"
     />
   </BaseInputWrapper>
