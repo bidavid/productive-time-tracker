@@ -41,4 +41,36 @@ function formatDate(
   return Intl.DateTimeFormat(...parameters).format(new Date(date))
 }
 
-export { formatDate }
+function formatCurrency(
+  amount: number,
+  currency = 'EUR',
+  fractionDigits = 2
+): string | null {
+  // eslint-disable-next-line eqeqeq
+  if (!amount && amount != 0) {
+    return null
+  }
+
+  return new Intl.NumberFormat('de-DE', {
+    currency,
+    currencyDisplay: 'symbol',
+    style: 'currency',
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits
+  }).format(amount)
+}
+
+function formatMinutesToHoursAndMinutes(totalMinutes: number): string | null {
+  // eslint-disable-next-line eqeqeq
+  if (!totalMinutes && totalMinutes != 0) {
+    return null
+  }
+
+  const padToTwoDigits = (x: number) => x.toString().padStart(2, '0')
+
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  return `${padToTwoDigits(hours)}:${padToTwoDigits(minutes)}`
+}
+
+export { formatDate, formatCurrency, formatMinutesToHoursAndMinutes }
