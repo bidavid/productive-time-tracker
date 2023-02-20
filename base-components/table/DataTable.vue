@@ -27,9 +27,9 @@
         <tr v-if="!items.length">
           <td colspan="100%">
             <div
-              class="p-3 flex items-center justify-center space-x-3 text-title-3"
+              class="p-3 flex items-center justify-center space-x-3 text-body-1"
             >
-              <em class="icon-help text-title-2" />
+              <em class="icon-help text-title-3" />
               <p>No results were found.</p>
             </div>
           </td>
@@ -141,6 +141,7 @@ export default Vue.extend({
       }
     },
     assignedModel: {
+      // Actually ModelEnum type..
       type: String as PropType<ModelEnum>,
       required: true,
       default: null
@@ -226,7 +227,7 @@ export default Vue.extend({
           Object.assign(params, additionalFilters)
         }
 
-        const { data, meta } = await this.$api[this.assignedModel].getList(
+        const { data, meta } = await this.$api[this.assignedModel]?.getList?.(
           params
         )
 

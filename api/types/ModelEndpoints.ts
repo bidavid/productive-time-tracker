@@ -9,5 +9,5 @@ export interface ModelEndpoints<ModelType, CustomModelFilters = {}> {
 
   getSingle(id: number): Promise<ModelType>
 
-  create?(payload: DeepPartial<ModelType>): Promise<ModelType>
+  create?(payload: { data: DeepPartial<ModelType> }): Promise<ModelType>
 }

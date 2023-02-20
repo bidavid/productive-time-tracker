@@ -17,5 +17,9 @@ export default (axios: NuxtAxiosInstance): ModelEndpoints<TimeEntry> => ({
 
   getSingle(id: number): Promise<TimeEntry> {
     return axios.$get(`time_entries/${id}`)
+  },
+
+  create(payload): Promise<TimeEntry> {
+    return axios.$post('time_entries', payload)
   }
 })

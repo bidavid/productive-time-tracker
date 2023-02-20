@@ -7,7 +7,9 @@
       >
         <div class="p-4 flex items-center justify-between space-x-4">
           <div class="flex items-center space-x-3">
-            <p>{{ title }}</p>
+            <p class="text-body-1">
+              {{ title }}
+            </p>
             <transition name="fade">
               <BaseSpinner v-show="loading" />
             </transition>
@@ -29,17 +31,15 @@
             v-if="confirmable"
             text="Confirm"
             background-color="bg-transparent"
-            border-color="transparent"
             text-color="text-purple-600"
             class="flex-shrink-0"
             :disabled="loading"
             @clicked="$emit('confirm-clicked')"
           />
           <BaseButton
-            v-if="deletable"
+            v-if="removable"
             text="Remove"
             background-color="bg-transparent"
-            border-color="transparent"
             text-color="text-red-800"
             class="flex-shrink-0"
             :disabled="loading"
@@ -77,7 +77,7 @@ export default Vue.extend({
       default: false
     },
 
-    deletable: {
+    removable: {
       type: Boolean,
       default: false
     }
