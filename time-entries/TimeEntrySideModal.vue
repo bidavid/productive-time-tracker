@@ -125,7 +125,7 @@ export default Vue.extend({
       form.serviceId = service.data!.id
     } else {
       form.personId = this.personId
-      // TODO: fetch services
+      // TODO: FETCH SERVICES
       form.serviceId = 2728168
     }
     return {
