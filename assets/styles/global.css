@@ -1,11 +1,3 @@
-a {
-  @apply text-blue-600;
-}
-
-a:hover {
-  @apply underline;
-}
-
 .content-container {
   @apply w-11/12 mx-auto;
 }

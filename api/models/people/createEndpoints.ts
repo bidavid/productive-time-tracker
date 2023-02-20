@@ -10,12 +10,12 @@ export default (axios: NuxtAxiosInstance): ModelEndpoints<Person> => ({
   getList(
     params: Partial<PaginationFilters> = {}
   ): Promise<PaginatedResponse<Person>> {
-    return axios.$get('time_entries', {
+    return axios.$get('people', {
       params
     })
   },
 
   getSingle(id: number): Promise<Person> {
-    return axios.$get(`time_entries/${id}`)
+    return axios.$get(`people/${id}`)
   }
 })

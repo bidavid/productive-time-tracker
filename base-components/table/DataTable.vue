@@ -105,7 +105,7 @@ function extractPaginationParams(page: number, limit: number) {
 const defaultLimit = 15
 
 // TODO: TABLE HEADER COMPONENT
-// TODO: IMPLEMENT SEARCH
+// TODO: IMPLEMENT SEARCH, SORT
 // TODO: PUSH FILTERS TO QUERY, USE UNIQUE KEYS FOR EACH TABLES TO DETERMINE WHICH QUERY BELONGS TO WHICH TABLE
 // TODO: SHOULD WORK BOTH WITH assignedModel PROP AND WITH ARRAY OF ITEMS TO DISPLAY
 
@@ -143,6 +143,10 @@ export default Vue.extend({
     assignedModel: {
       type: String as PropType<ModelEnum>,
       required: true,
+      default: null
+    },
+    additionalFilters: {
+      type: Object,
       default: null
     },
     limit: {
@@ -212,9 +216,19 @@ export default Vue.extend({
 
         const { page, limit } = this.filters
 
+        const params = {
+          ...extractPaginationParams(page, limit)
+        }
+
+        const { additionalFilters } = this
+
+        if (additionalFilters) {
+          Object.assign(params, additionalFilters)
+        }
+
         const { data, meta, included } = await this.$api[
           this.assignedModel
-        ].getList(extractPaginationParams(page, limit))
+        ].getList(params)
 
         replaceItems(this.items, data)
         this.refreshPagination(meta)
