@@ -6,23 +6,34 @@
 <script lang="ts">
 import Vue from 'vue'
 
+// Defaults
+const defaultSize = '1rem'
+const defaultBorderWidth = '3px'
+// purple-600
+const defaultBorderColor = '#7c3aed'
+// gray-300
+const defaultBorderTopColor = '#d1d5db'
+
+// We cannot use tailwind classes here, because tailwind 2.x doesn't support applying colors to individual borders.
+// And if we applied border-purple-600 with border-top-color:'#d1d5db', border-top-color would get overriden, so this is the simplest solution
+
 export default Vue.extend({
   props: {
     size: {
       type: String,
-      default: '1rem'
+      default: defaultSize
     },
     borderWidth: {
       type: String,
-      default: '3px'
-    },
-    pathColor: {
-      type: String,
-      default: '#d1d5db'
+      default: defaultBorderWidth
     },
     spinnerColor: {
       type: String,
-      default: '#7c3aed'
+      default: defaultBorderColor
+    },
+    pathColor: {
+      type: String,
+      default: defaultBorderTopColor
     }
   },
 
