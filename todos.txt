@@ -2,9 +2,6 @@ COMPONENTS:
   BaseTableHeader
   SelectInput FOR SERVICES
 
-REFACTORS:
-  Type ModelEndpoints for each ModelEnum with Pick<T> or Omit<T>
-
 FEATURES:
   BaseTable -> search
 

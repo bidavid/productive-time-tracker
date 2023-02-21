@@ -230,8 +230,7 @@ export default Vue.extend({
           serviceId
         )
 
-        // TODO: TYPE EACH MODELENDPOINT WITH Pick<T> or Omit<T>, THAT WAY YOU WON'T HAVE TO USE OPTIONAL CHAINING
-        await this.$api[ModelEnum.TimeEntries].create?.(payload)
+        await this.$api[ModelEnum.TimeEntries].create(payload)
 
         this.$toast.success('New Time Entry successfully created')
 
@@ -249,7 +248,7 @@ export default Vue.extend({
 
         const payload = createTimeEntryPayload(note, date, time)
 
-        await this.$api[ModelEnum.TimeEntries].update?.(
+        await this.$api[ModelEnum.TimeEntries].update(
           this.editedItem.id,
           payload
         )
@@ -273,7 +272,7 @@ export default Vue.extend({
       try {
         this.startSubmitting()
 
-        await this.$api[ModelEnum.TimeEntries].delete?.(this.editedItem.id)
+        await this.$api[ModelEnum.TimeEntries].delete(this.editedItem.id)
 
         this.$toast.success('Time Entry successfully removed')
 
