@@ -43,6 +43,10 @@
 import Vue, { PropType } from 'vue'
 import { maxLength, required, minValue } from 'vuelidate/lib/validators'
 import { TimeEntry } from '~/api/models/time-entries/TimeEntry'
+import { DeepPartial } from '~/utilities/types/DeepPartial'
+
+// Enums
+import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 // Components
 import BaseSideModal from '~/base-components/modals/BaseSideModal.vue'
@@ -51,17 +55,15 @@ import DateInput from '~/base-components/form/DateInput.vue'
 
 // Utilities
 import { maxDate } from '~/validations/additional-validators'
-
-import { ModelEnum } from '~/api/models/enums/ModelEnum'
 import NumberInput from '~/base-components/form/NumberInput.vue'
 
 function createTimeEntryPayload(
-  note?: string,
-  date?: string,
-  time?: number,
-  personId?: number,
-  serviceId?: number
-): { data: Partial<TimeEntry> } {
+  note: string | null,
+  date: string | null,
+  time: number | null,
+  personId?: number | null,
+  serviceId?: number | null
+): { data: DeepPartial<TimeEntry> } {
   const payload: { data: Partial<TimeEntry> } = {
     data: {
       type: ModelEnum.TimeEntries
@@ -160,8 +162,14 @@ export default Vue.extend({
   },
 
   methods: {
-    reset() {
+    startSubmitting() {
+      this.submitting = true
+    },
+    stopSubmitting() {
       this.submitting = false
+    },
+    reset() {
+      this.stopSubmitting()
       this.resetForm()
     },
 
@@ -183,7 +191,7 @@ export default Vue.extend({
         return
       }
 
-      this.submitting = true
+      this.startSubmitting()
 
       let success = false
 
@@ -197,7 +205,7 @@ export default Vue.extend({
         this.onSuccess()
       }
 
-      this.submitting = false
+      this.stopSubmitting()
     },
 
     onClose() {
@@ -215,14 +223,14 @@ export default Vue.extend({
         const { note, date, time, personId, serviceId } = this.form
 
         const payload = createTimeEntryPayload(
-          note!,
-          date!,
-          time!,
-          personId!,
-          serviceId!
+          note,
+          date,
+          time,
+          personId,
+          serviceId
         )
 
-        // @ts-ignore how..
+        // TODO: TYPE EACH MODELENDPOINT WITH Pick<T> or Omit<T>, THAT WAY YOU WON'T HAVE TO USE OPTIONAL CHAINING
         await this.$api[ModelEnum.TimeEntries].create?.(payload)
 
         this.$toast.success('New Time Entry successfully created')
@@ -239,9 +247,8 @@ export default Vue.extend({
       try {
         const { note, date, time } = this.form
 
-        const payload = createTimeEntryPayload(note!, date!, time!)
+        const payload = createTimeEntryPayload(note, date, time)
 
-        // @ts-ignore how..
         await this.$api[ModelEnum.TimeEntries].update?.(
           this.editedItem.id,
           payload
@@ -264,7 +271,7 @@ export default Vue.extend({
       }
 
       try {
-        this.submitting = true
+        this.startSubmitting()
 
         await this.$api[ModelEnum.TimeEntries].delete?.(this.editedItem.id)
 
@@ -272,9 +279,9 @@ export default Vue.extend({
 
         this.onSuccess()
       } catch (e) {
-        this.$toast.error('An error occured while deleting Time Entry')
+        this.$toast.error('An error occured while removing Time Entry')
       } finally {
-        this.submitting = false
+        this.stopSubmitting()
       }
     }
   },
