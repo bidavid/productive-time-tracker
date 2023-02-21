@@ -1,18 +1,15 @@
 // Enums
 import { ModelEnum } from '../models/enums/ModelEnum'
 
-// Types
-import { ModelEndpoints } from './ModelEndpoints'
-
 // Models
-import { OrganizationMembership } from '../models/organization-memberships/OrganizationMembership'
-import { Person } from '../models/people/Person'
-import { TimeEntry, TimeEntryFilters } from '../models/time-entries/TimeEntry'
-import { Service } from '../models/services/Service'
+import { OrganizationMembershipModelEndpoints } from '~/api/models/organization-memberships/OrganizationMembershipModelEndpoints'
+import { PersonModelEndpoints } from '~/api/models/people/PersonModelEndpoints'
+import { ServiceModelEndpoints } from '~/api/models/services/ServiceModelEndpoints'
+import { TimeEntryModelEndpoints } from '~/api/models/time-entries/TimeEntryModelEndpoints'
 
 export interface ApiService {
-  [ModelEnum.OrganizationMemberships]: ModelEndpoints<OrganizationMembership>
-  [ModelEnum.People]: ModelEndpoints<Person>
-  [ModelEnum.Services]: ModelEndpoints<Service>
-  [ModelEnum.TimeEntries]: ModelEndpoints<TimeEntry, TimeEntryFilters>
+  [ModelEnum.OrganizationMemberships]: OrganizationMembershipModelEndpoints
+  [ModelEnum.People]: PersonModelEndpoints
+  [ModelEnum.Services]: ServiceModelEndpoints
+  [ModelEnum.TimeEntries]: TimeEntryModelEndpoints
 }
