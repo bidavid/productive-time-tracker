@@ -94,7 +94,7 @@ export default Vue.extend({
   },
 
   created() {
-    setTimeout(() => (this.contentRendered = true), 200)
+    setTimeout(() => (this.contentRendered = true), 150)
   }
 })
 </script>

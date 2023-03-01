@@ -1,7 +1,7 @@
 import { ModelEnum } from '~/api/models/enums/ModelEnum'
 
 interface ModelRelationship {
-  data: null | { type: ModelEnum; id: number }
+  data: null | { type: ModelEnum; id: string }
 }
 
 interface ModelAttributes {
@@ -15,7 +15,7 @@ interface ModelAttributes {
 }
 
 export interface Model<T> {
-  id: number
+  id: string
   type: T
   attributes: ModelAttributes
   relationships: Record<string, ModelRelationship>

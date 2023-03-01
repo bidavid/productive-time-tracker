@@ -61,8 +61,8 @@ function createTimeEntryPayload(
   note: string | null,
   date: string | null,
   time: number | null,
-  personId?: number | null,
-  serviceId?: number | null
+  personId?: string | null,
+  serviceId?: string | null
 ): { data: DeepPartial<TimeEntry> } {
   const payload: { data: Partial<TimeEntry> } = {
     data: {
@@ -74,7 +74,7 @@ function createTimeEntryPayload(
     payload.data.attributes = {
       ...(note && { note }),
       ...(date && { date }),
-      ...(time && { time })
+      ...(time && { time: +time })
     }
   }
 
@@ -117,7 +117,7 @@ export default Vue.extend({
       default: null
     },
     personId: {
-      type: Number,
+      type: String,
       default: null,
       required: true
     }
@@ -128,8 +128,8 @@ export default Vue.extend({
       note: null as string | null,
       date: null as string | null,
       time: null as number | null,
-      serviceId: null as number | null,
-      personId: null as number | null
+      serviceId: null as string | null,
+      personId: null as string | null
     }
 
     if (this.editedItem) {
@@ -140,12 +140,13 @@ export default Vue.extend({
       form.note = note || null
       form.date = date || null
       form.time = time || null
+
       form.personId = person.data!.id
       form.serviceId = service.data!.id
     } else {
       form.personId = this.personId
       // TODO: FETCH SERVICES
-      form.serviceId = this.$config.SERVICE_ID
+      form.serviceId = this.$config.SERVICE_ID.toString()
     }
     return {
       submitting: false,

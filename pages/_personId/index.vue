@@ -89,7 +89,7 @@ export default Vue.extend({
 
   async asyncData({ $api, params, error }) {
     try {
-      const person = await $api[ModelEnum.People].getSingle(+params.personId)
+      const person = await $api[ModelEnum.People].getSingle(params.personId)
 
       return {
         person
@@ -141,8 +141,8 @@ export default Vue.extend({
   },
 
   computed: {
-    personId(): number {
-      return +this.$route.params.personId
+    personId(): string {
+      return this.$route.params.personId
     },
     tableTitle(): string {
       const { first_name, last_name } = this.person.data.attributes

@@ -7,14 +7,14 @@ export interface ModelEndpoints<ModelType, CustomModelFilters = {}> {
     params?: Partial<PaginationFilters & CustomModelFilters>
   ): Promise<PaginatedResponse<ModelType>>
 
-  getSingle(id: number): Promise<ModelType>
+  getSingle(id: string): Promise<ModelType>
 
   create(payload: { data: DeepPartial<ModelType> }): Promise<ModelType>
 
   update(
-    id: number,
+    id: string,
     payload: { data: DeepPartial<ModelType> }
   ): Promise<ModelType>
 
-  delete(id: number): Promise<ModelType>
+  delete(id: string): Promise<ModelType>
 }
