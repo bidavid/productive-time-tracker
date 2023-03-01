@@ -113,7 +113,8 @@ export default Vue.extend({
 
   props: {
     editedItem: {
-      type: Object as PropType<TimeEntry>
+      type: Object as PropType<TimeEntry>,
+      default: null
     },
     personId: {
       type: Number,
@@ -257,7 +258,6 @@ export default Vue.extend({
 
         return true
       } catch (e) {
-        console.dir(e)
         this.$toast.error('An error occured while updating Time Entry')
 
         return false
