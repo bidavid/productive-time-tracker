@@ -1,11 +1,11 @@
 import { helpers } from 'vuelidate/lib/validators'
-import dayjs from 'dayjs'
+import dayjs, { extend } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import { DayJsGranularityEnum } from '~/validations/enums/DayJsGranularityEnum'
 
-dayjs.extend(isSameOrAfter)
-dayjs.extend(isSameOrBefore)
+extend(isSameOrAfter)
+extend(isSameOrBefore)
 
 const minDate = (
   param: Date | string,
