@@ -1,4 +1,10 @@
 import { ModelEndpoints } from '~/api/types/ModelEndpoints'
-import { TimeEntry } from '~/api/models/time-entries/TimeEntry'
+import {
+  TimeEntry,
+  TimeEntryFilters
+} from '~/api/models/time-entries/TimeEntry'
 
-export type TimeEntryModelEndpoints = ModelEndpoints<TimeEntry>
+export type TimeEntryModelEndpoints = ModelEndpoints<
+  TimeEntry,
+  TimeEntryFilters
+>

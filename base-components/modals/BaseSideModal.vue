@@ -94,7 +94,7 @@ export default Vue.extend({
   },
 
   created() {
-    setTimeout(() => (this.contentRendered = true), 300)
+    setTimeout(() => (this.contentRendered = true), 200)
   }
 })
 </script>
@@ -102,12 +102,12 @@ export default Vue.extend({
 <style scoped>
 .side-modal-enter-active {
   animation: growOut 250ms ease-in-out forwards;
-  transform-origin: bottom right;
+  transform-origin: right center;
 }
 
 .side-modal-leave-active {
   animation: growIn 100ms ease-in-out forwards;
-  transform-origin: top right;
+  transform-origin: right center;
 }
 
 @keyframes growOut {
