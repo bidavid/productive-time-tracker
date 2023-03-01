@@ -63,8 +63,11 @@ export default Vue.extend({
 
   methods: {
     handleKeyPress(e: KeyboardEvent) {
-      const keyCode = 'keyCode' in e ? e.keyCode : e.which
-      if (keyCode < 48 || keyCode > 57) {
+      const { code, keyCode, which } = e
+
+      const c = +(code ?? keyCode ?? which)
+
+      if (c < 48 || c > 57) {
         e.preventDefault()
       }
     }
