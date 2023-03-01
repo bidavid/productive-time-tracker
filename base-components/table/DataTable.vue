@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-full overflow-x-auto">
+  <section class="w-full max-w-full overflow-x-auto">
     <!--    TOOLBAR-->
     <TableToolbar
       v-if="toolbarShown"
@@ -68,7 +68,7 @@
         @set-page="setPage"
       />
     </transition>
-  </div>
+  </section>
 </template>
 <script lang="ts">
 import Vue, { PropType } from 'vue'
