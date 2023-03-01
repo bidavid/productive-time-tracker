@@ -23,33 +23,38 @@
           </button>
         </div>
         <hr class="mb-4" />
-        <div class="px-4 overflow-x-hidden overflow-y-auto">
-          <slot />
-        </div>
-        <div
-          class="absolute bottom-0 left-0 right-0 p-4 flex items-center justify-between space-x-4"
+        <form
+          class="px-4 overflow-x-hidden"
+          @submit.prevent="$emit('confirm-clicked')"
         >
-          <BaseButton
-            v-if="confirmable"
-            text="Confirm"
-            background-color="bg-transparent"
-            border-color="border-white"
-            text-color="text-purple-600"
-            class="flex-shrink-0"
-            :disabled="loading"
-            @clicked="$emit('confirm-clicked')"
-          />
-          <BaseButton
-            v-if="removable"
-            text="Remove"
-            background-color="bg-transparent"
-            border-color="border-white"
-            text-color="text-red-800"
-            class="flex-shrink-0"
-            :disabled="loading"
-            @clicked="$emit('remove-clicked')"
-          />
-        </div>
+          <div class="overflow-y-auto">
+            <slot />
+          </div>
+          <div
+            class="absolute bottom-0 left-0 right-0 py-4 flex items-center justify-between space-x-4"
+          >
+            <BaseButton
+              v-if="confirmable"
+              type="submit"
+              text="Confirm"
+              background-color="bg-transparent"
+              border-color="border-white"
+              text-color="text-purple-600"
+              class="flex-shrink-0"
+              :disabled="loading"
+            />
+            <BaseButton
+              v-if="removable"
+              text="Remove"
+              background-color="bg-transparent"
+              border-color="border-white"
+              text-color="text-red-800"
+              class="flex-shrink-0"
+              :disabled="loading"
+              @clicked="$emit('remove-clicked')"
+            />
+          </div>
+        </form>
       </div>
     </transition>
   </div>
