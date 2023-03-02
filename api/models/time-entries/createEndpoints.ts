@@ -7,27 +7,25 @@ import { TimeEntryModelEndpoints } from '~/api/models/time-entries/TimeEntryMode
 // Every endpoint factory has to return ModelEndpoints type
 export default (axios: NuxtAxiosInstance): TimeEntryModelEndpoints => ({
   // Return types can now be omitted but let's keep them
-  getList(
-    params: Partial<PaginationFilters & TimeEntryFilters> = {}
-  ): Promise<PaginatedResponse<TimeEntry>> {
+  getList(params) {
     return axios.$get('time_entries', {
       params
     })
   },
 
-  getSingle(id: number): Promise<TimeEntry> {
+  getSingle(id) {
     return axios.$get(`time_entries/${id}`)
   },
 
-  create(payload): Promise<TimeEntry> {
+  create(payload) {
     return axios.$post('time_entries', payload)
   },
 
-  update(id: number, payload): Promise<TimeEntry> {
+  update(id, payload) {
     return axios.$patch(`time_entries/${id}`, payload)
   },
 
-  delete(id: number): Promise<TimeEntry> {
+  delete(id) {
     return axios.$delete(`time_entries/${id}`)
   }
 })

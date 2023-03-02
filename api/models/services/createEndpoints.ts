@@ -1,21 +1,17 @@
 // Types
 import type { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { PaginatedResponse, PaginationFilters } from '../../types/Pagination'
-import { Service } from './Service'
 import { ServiceModelEndpoints } from '~/api/models/services/ServiceModelEndpoints'
 
 // Every endpoint factory has to return ModelEndpoints type
 export default (axios: NuxtAxiosInstance): ServiceModelEndpoints => ({
   // Return types can now be omitted but let's keep them
-  getList(
-    params: Partial<PaginationFilters> = {}
-  ): Promise<PaginatedResponse<Service>> {
+  getList(params) {
     return axios.$get('services', {
       params
     })
   },
 
-  getSingle(id: number): Promise<Service> {
+  getSingle(id) {
     return axios.$get(`services/${id}`)
   }
 })
